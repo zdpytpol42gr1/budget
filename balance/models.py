@@ -1,9 +1,15 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
-# class Income(models.Model):
-#     name = models.CharField(max_length=30, label='income name', required=True)
-#     category = models.CharField(max_length=30, label='category name', required=True)
-#     value = models.DecimalField(min_value=1, required=True, max_digits=6)
-#     comment = models.CharField(max_length=100)
-#     cyclical_income = models.ChoiceField(choices=(('1', 'Yes'), ('0', 'No')), required=True)  # extra
+class Income(models.Model):
+    name = models.CharField(max_length=30)
+    value = models.DecimalField(max_digits=6, decimal_places=2)
+    comment = models.CharField(max_length=100)
+    cyclical_income = models.BooleanField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incomes')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
