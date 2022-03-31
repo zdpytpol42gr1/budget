@@ -1,5 +1,7 @@
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .forms import NewUserForm, LoginForm
 
@@ -50,3 +52,28 @@ def login_page(request):
 def logout_user(request):
     logout(request)
     return redirect(hi_page_view)
+
+
+@staff_member_required()
+def del_user(request, username):
+    u = User.objects.get(username=username)
+    if request.method == 'POST':
+        try:
+            u.delete()
+            return redirect(user_list_view)
+
+        except User.DoesNotExist:
+            messages.error(request, "User does not exist")
+            return render(request, 'user_manager/accept.html')
+
+        except Exception as e:
+            return render(request, 'user_manager/accept.html', {'err': e.message})
+
+    return render(request, 'user_manager/accept.html', {'user': u})
+
+
+@staff_member_required()
+def user_list_view(request):
+    users = User.objects.all()
+
+    return render(request, 'user_manager/user_list.html', {'users': users})
