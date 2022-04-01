@@ -1,0 +1,10 @@
+{% extends 'balance/base_generic.html' %}
+
+{% block site_title %} Income: {{ income_category.name }} {% endblock %}
+
+{% block content %}
+    <h2>Income detail</h2>
+    Title: {{ income_category.title }}<br>
+    <a href="{% url 'income_category_edit' income_category.id %}"> Edit income category</a>
+    <a href="{% url 'income_category_edit' income_category.id %}"> Delete income category</a>
+{% endblock %}

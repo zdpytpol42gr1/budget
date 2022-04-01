@@ -1,0 +1,13 @@
+{% extends 'balance/base_generic.html' %}
+{% block content %}
+<h2>Income detail</h2>
+    Title: {{ income.name }}<br>
+    Value: {{ income.value }}<br>
+    Created at: {{ income.created_at }} <br>
+    Updated at: {{ income.updated_at }} <br>
+<form method="POST" action="" novalidate>
+    <input type="submit" value="Delete income">
+    <a href="{% url 'income_detail' income.id %}"> Cancel </a>
+    {% csrf_token %}
+</form>
+{% endblock %}

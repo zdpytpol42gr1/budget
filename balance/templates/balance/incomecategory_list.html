@@ -1,0 +1,17 @@
+{% extends 'balance/base_generic.html' %}
+
+{% block content %}
+  <h1>Income Category List</h1>
+  {% if income_category_list %}
+  <ul>
+    {% for income_category in income_category_list %}
+      <li>
+        <a href="{% url 'income_category_detail' income_category.id %}">{{ income_category.title }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+    <p>There are no income categories</p>
+  {% endif %}
+  <a href="{% url 'income_category_add' %}"> Add income category </a>
+{% endblock %}
