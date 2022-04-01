@@ -1,0 +1,24 @@
+<h1>Expense list view</h1>
+
+<table>
+    <thead>
+    <tr><th>Name</th><th>Value</th><th>Category</th><th>Expense date</th></tr>
+    </thead>
+    <tbody>
+    {% for expense in object_list %}
+    <tr><td> <a href="{% url 'expense_detail' expense.id %}"> {{ expense.expense_name }} </a> </td>
+        <td> {{ expense.expense_value }}</td>
+        <td> {{ expense.category }} </td>
+        <td> {{ expense.expense_date|date:"Y-m-d H:i" }}</td>
+    </tr>
+    {% empty %}
+    No expenses
+    {% endfor %}
+    </tbody>
+</table>
+
+<button onclick="location.href='{% url 'expense_create' %}'" type="button">Add expense</button>
+<button onclick="location.href='{% url 'category_create' %}'" type="button">Add new category</button>
+{% comment %}
+<!--<button onclick="location.href='{% url 'main-menu' %}'" type="button">Back to the main menu</button>-->
+{% endcomment %}

@@ -1,0 +1,20 @@
+<h1>Category list view</h1>
+
+<table>
+    <thead>
+    <tr><th>Name</th></tr>
+    </thead>
+    <tbody>
+    {% for category in object_list %}
+    <tr><td> <a href="{% url 'category_detail' category.id %}">{{ category.category_name }}</a> </td></tr>
+    {% empty %}
+    No categories yet
+    {% endfor %}
+    </tbody>
+</table>
+
+<button onclick="location.href='{% url 'category_create' %}'" type="button">Add new category</button>
+<button onclick="location.href='{% url 'expense_list' %}'" type="button">Back to main menu</button>
+{% comment %}
+<!--<button onclick="location.href='{% url 'main-menu' %}'" type="button">Back to the main menu</button>-->
+{% endcomment %}
