@@ -5,8 +5,8 @@
     <title>User list</title>
 </head>
 <body>
-    {% for user in users %}
-        {{ user.username }} <a href="{% url 'del_user' user.username %}">Delete</a><br>
+    {% for user in object_list %}
+        {{ user.username }}<br>
     {% endfor %}
 </body>
 </html>
