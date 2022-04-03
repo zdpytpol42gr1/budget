@@ -1,11 +1,17 @@
+{% extends 'balance/base.html' %}
+{% block site_title %} Expense details {% endblock %}
+
+{% block content %}
 <h2> Expense detail</h2>
 
 <p>Expense name: {{ object.expense_name }}</br>
-Expense value: {{ object.expense_value }}</br>
-Comment: {{ object.comment }}</br>
-Expense date: {{ object.expense.date }}</br>
-Category: {{ object.category }}</br></p>
+    Expense value: {{ object.expense_value }}</br>
+    Comment: {{ object.comment }}</br>
+    Expense date: {{ object.expense.date }}</br>
+    Category: {{ object.expense_category }}</br></p>
 
 <button onclick="location.href='{% url 'expense_update' expense.id %}'" type="button">Edit expense</button>
 <button onclick="location.href='{% url 'expense_delete' expense.id %}'" type="button">Delete expense</button>
 <button onclick="location.href='{% url 'expense_list' %}'" type="button">Back to expense list</button>
+
+{% endblock content %}

@@ -1,8 +1,0 @@
-<h1>ADD NEW CATEGORY</h1>
-<form method="post" novalidate>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
-
-<button onclick="location.href='{% url 'category_list' %}'" type="button">Back to category list</button>

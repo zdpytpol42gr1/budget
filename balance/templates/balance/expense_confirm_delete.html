@@ -1,3 +1,7 @@
+{% extends 'balance/base.html' %}
+{% block site_title %} Confirm {% endblock %}
+
+{% block content %}
 <form method="post">
     {% csrf_token %}
     <p>Are you sure you want to delete expense "{{ object }}"?</p>
@@ -5,3 +9,5 @@
     <input type="submit" value="Confirm">
     <button onclick="location.href='{% url 'expense_detail' expense.id %}'" type="button">Cancel</button>
 </form>
+
+{% endblock content %}

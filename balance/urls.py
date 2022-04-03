@@ -1,24 +1,17 @@
-from django.urls import path, reverse_lazy
-from .models import Expense, Category
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.urls import path
+
+from .views import ExpenseListView, ExpenseDetailView, ExpenseCreateView, ExpenseUpdateView, ExpenseDeleteView, \
+    ExpenseCategoryListView, ExpenseCategoryDetailView, ExpenseCategoryCreateView, ExpenseCategoryDeleteView
 
 urlpatterns = [
-    path('expense-list/', ListView.as_view(model=Expense), name='expense_list'),
-    path('expense-detail/<int:pk>', DetailView.as_view(model=Expense), name='expense_detail'),
-    path('expense-create/',
-         CreateView.as_view(model=Expense, fields='__all__', success_url=reverse_lazy('expense_list')),
-         name='expense_create'),
-    path('expense-update/<int:pk>',
-         UpdateView.as_view(model=Expense, fields='__all__', success_url=reverse_lazy('expense_list')),
-         name='expense_update'),
-    path('expense-delete/<int:pk>', DeleteView.as_view(model=Expense, success_url=reverse_lazy('expense_list')),
-         name='expense_delete'),
+    path('expense-list/', ExpenseListView.as_view(), name='expense_list'),
+    path('expense-detail/<int:pk>', ExpenseDetailView.as_view(), name='expense_detail'),
+    path('expense-create/', ExpenseCreateView.as_view(), name='expense_create'),
+    path('expense-update/<int:pk>', ExpenseUpdateView.as_view(), name='expense_update'),
+    path('expense-delete/<int:pk>', ExpenseDeleteView.as_view(), name='expense_delete'),
 
-    path('category-list/', ListView.as_view(model=Category), name='category_list'),
-    path('category-detail/<int:pk>', DetailView.as_view(model=Category), name='category_detail'),
-    path('category-create/',
-         CreateView.as_view(model=Category, fields='__all__', success_url=reverse_lazy('category_list')),
-         name='category_create'),
-    path('category-delete/<int:pk>', DeleteView.as_view(model=Category, success_url=reverse_lazy('category_list')),
-         name='category_delete'),
+    path('category-list/', ExpenseCategoryListView.as_view(), name='expense_category_list'),
+    path('category-detail/<int:pk>', ExpenseCategoryDetailView.as_view(), name='expense_category_detail'),
+    path('category-create/', ExpenseCategoryCreateView.as_view(), name='expense_category_create'),
+    path('category-delete/<int:pk>', ExpenseCategoryDeleteView.as_view(), name='expense_category_delete'),
 ]
