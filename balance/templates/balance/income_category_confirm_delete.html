@@ -1,0 +1,10 @@
+{% extends 'balance/base_generic.html' %}
+{% block content %}
+<h2>Category detail</h2>
+    Income category title: {{ object.title }}<br>
+<form method="POST" action="" novalidate>
+    <input type="submit" value="Delete income category">
+    <a href="{% url 'income_category_detail' object.id %}"> Cancel </a>
+    {% csrf_token %}
+</form>
+{% endblock %}

@@ -6,13 +6,15 @@
   <ul>
     {% for income in income_list %}
       <li>
-        <a href="{% url 'income_detail' income.id %}">{{ income.name }}</a> ({{ income.value }})
+        <a href="{% url 'income_detail' income.id %}">{{ income.name }}</a> ({{ income.income_value }})
       </li>
     {% endfor %}
   </ul>
   {% else %}
     <p>There are no incomes</p>
   {% endif %}
-  <a href="{% url 'income_add' %}"> Add income </a>
-
+<p>No. of incomes: {{ incomes_counter }} </p>
+<p>Incomes value (TOTAL): {{ incomes_value }} </p>
+  <a href="{% url 'income_add' %}"> Add income </a><br>
 {% endblock %}
+

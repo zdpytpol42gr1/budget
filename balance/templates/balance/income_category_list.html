@@ -13,5 +13,6 @@
   {% else %}
     <p>There are no income categories</p>
   {% endif %}
+<p>No. of income categories: {{ incomes_category_counter }} </p>
   <a href="{% url 'income_category_add' %}"> Add income category </a>
 {% endblock %}

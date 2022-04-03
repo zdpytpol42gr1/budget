@@ -3,11 +3,12 @@
 {% block site_title %} Income: {{ income.name }} {% endblock %}
 
 {% block content %}
-    <h2>Income detail</h2>
+    <h2>Income details</h2>
     Title: {{ income.name }}<br>
-    Value: {{ income.value }}<br>
+    Value: {{ income.income_value }}<br>
+    Income category: {{ income.income_category }} <br>
     Created at: {{ income.created_at }} <br>
     Updated at: {{ income.updated_at }} <br>
-    <a href="{% url 'income_edit' income.id %}"> Edit income </a>
+    <a href="{% url 'income_edit' income.id %}"> Edit income </a><br>
     <a href="{% url 'income_delete' income.id %}"> Delete income </a>
 {% endblock %}
