@@ -85,6 +85,10 @@ class ExpenseCategoryCreateView(CreateView):
     template_name = 'balance/expense_category_form.html'
     success_url = reverse_lazy('expense_category_list')
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 
 class ExpenseCategoryDeleteView(DeleteView):
     model = ExpenseCategory
