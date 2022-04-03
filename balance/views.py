@@ -7,7 +7,7 @@ from django.views.generic import (
     UpdateView,
 )
 
-from .mixins import UserAccessMixin
+from .mixins import AccessUserMixin
 from .models import Income, IncomeCategory
 
 
@@ -42,12 +42,12 @@ class IncomeCreateView(CreateView):
         return super().form_valid(form)
 
 
-class IncomeDetailView(UserAccessMixin, DetailView):
+class IncomeDetailView(AccessUserMixin, DetailView):
     model = Income
     template_name = "balance/income_detail.html"
 
 
-class IncomeUpdateView(UserAccessMixin, UpdateView):
+class IncomeUpdateView(AccessUserMixin, UpdateView):
     model = Income
     fields = ["name", "income_value", "comment", "recurring_income"]
     template_name = "balance/income_form.html"
@@ -96,12 +96,12 @@ class IncomeCategoryCreateView(CreateView):
         return super().form_valid(form)
 
 
-class IncomeCategoryDetailView(UserAccessMixin, DetailView):
+class IncomeCategoryDetailView(AccessUserMixin, DetailView):
     model = IncomeCategory
     template_name = "balance/income_category_detail.html"
 
 
-class IncomeCategoryUpdateView(UserAccessMixin, UpdateView):
+class IncomeCategoryUpdateView(AccessUserMixin, UpdateView):
     model = IncomeCategory
     fields = ["title", "comment"]
     template_name = "balance/income_category_form.html"
