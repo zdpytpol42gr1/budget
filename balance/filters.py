@@ -9,3 +9,4 @@ class ExpenseFilter(django_filters.FilterSet):
     expense_value__lte = django_filters.NumberFilter(field_name='expense_value', lookup_expr='lte', label='to')
     expense_name = django_filters.CharFilter(lookup_expr='icontains', label='name')
     expense_category = django_filters.ModelChoiceFilter(queryset=ExpenseCategory.objects.all(), label='category')
+

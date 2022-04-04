@@ -1,7 +1,8 @@
 from django.urls import path
 
 from .views import ExpenseListView, ExpenseDetailView, ExpenseCreateView, ExpenseUpdateView, ExpenseDeleteView, \
-    ExpenseCategoryListView, ExpenseCategoryDetailView, ExpenseCategoryCreateView, ExpenseCategoryDeleteView
+    ExpenseCategoryListView, ExpenseCategoryDetailView, ExpenseCategoryCreateView, ExpenseCategoryDeleteView, \
+    ExpenseSummaryTemplateView
 
 urlpatterns = [
     path('expense-list/', ExpenseListView.as_view(), name='expense_list'),
@@ -14,4 +15,5 @@ urlpatterns = [
     path('category-detail/<int:pk>', ExpenseCategoryDetailView.as_view(), name='expense_category_detail'),
     path('category-create/', ExpenseCategoryCreateView.as_view(), name='expense_category_create'),
     path('category-delete/<int:pk>', ExpenseCategoryDeleteView.as_view(), name='expense_category_delete'),
+    path('expense-summary/', ExpenseSummaryTemplateView.as_view(), name='expense_summary'),
 ]

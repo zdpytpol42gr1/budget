@@ -47,33 +47,40 @@
 </table>
 </div>
 
-<div class="results">
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Results found</h5>
-                    <p class="card-text">{{ results_count }}</p>
+<div class="container">
+    <div class="results text-center">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Results found</h5>
+                        <p class="card-text">{{ results_count }}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Results value</h5>
-                    <p class="card-text">{{ results_value }} PLN</p>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Results value</h5>
+                        <p class="card-text">{{ results_value }} PLN</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <p>
 <div class="bottom-buttons text-center">
     <button onclick="location.href='{% url 'expense_create' %}'" type="button" class="btn btn-warning">Add expense
     </button>
     <button onclick="location.href='{% url 'expense_category_create' %}'" type="button" class="btn btn-warning">Add new
         category
+    </button>
+</div></p>
+
+<p>
+<div class="expenses-summary-button text-center">
+    <button onclick="location.href='{% url 'expense_summary' %}'" type="button" class="btn btn-primary">Expenses summary
     </button>
 </div></p>
 
