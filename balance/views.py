@@ -1,4 +1,5 @@
-from django.db.models import Sum
+from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
+from django.db.models import Sum, Count
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
@@ -10,34 +11,26 @@ from .models import Expense, ExpenseCategory
 class ExpenseListView(ListView):
     model = Expense
 
-    def get_queryset(self):
-        if self.model is not None:
-            queryset = self.model.objects.filter(user=self.request.user)
-        return queryset
 
     def get_context_data(self, **kwargs):
-        try:
-            context = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
-            all_expenses_value = Expense.objects.aggregate(sum=Sum('expense_value'))
-            context['all_expenses_value'] = round(all_expenses_value['sum'], 2)
+        all_expenses_value = Expense.objects.aggregate(sum=Sum('expense_value'))
+        context['all_expenses_value'] = round(all_expenses_value['sum'], 2)
 
-            all_expenses_count = Expense.objects.count()
-            context['all_expenses_count'] = all_expenses_count
+        all_expenses_count = Expense.objects.count()
+        context['all_expenses_count'] = all_expenses_count
 
-            main_filter = ExpenseFilter(self.request.GET, queryset=Expense.objects.all())
-            context['filter'] = main_filter
+        main_filter = ExpenseFilter(self.request.GET, queryset=Expense.objects.all())
+        context['filter'] = main_filter
 
-            results_count = main_filter.qs.count()
-            context['results_count'] = results_count
+        results_count = main_filter.qs.count()
+        context['results_count'] = results_count
 
-            results_value = main_filter.qs.aggregate(sum=Sum('expense_value'))
-            context['results_value'] = round(results_value['sum'], 2)
+        results_value = main_filter.qs.aggregate(sum=Sum('expense_value'))
+        context['results_value'] = round(results_value['sum'], 2)
 
-            return context
-
-        except TypeError:
-            pass
+        return context
 
 
 class ExpenseDetailView(AccessUserMixin, DetailView):
@@ -84,7 +77,13 @@ class ExpenseCategoryListView(ListView):
 
 class ExpenseCategoryDetailView(DetailView):
     model = ExpenseCategory
-    fields = '__all__'
+    template_name = 'balance/expense_category_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        sum_of_expenses_in_category = ExpenseCategory.objects.annotate(sum=Sum('expense__expense_value'))
+        context['sum_of_expenses_in_category'] = sum_of_expenses_in_category
+        return context
 
 
 class ExpenseCategoryCreateView(CreateView):
@@ -98,9 +97,19 @@ class ExpenseCategoryCreateView(CreateView):
         return super().form_valid(form)
 
 
+class ExpenseCategoryUpdateView(UpdateView):
+    model = ExpenseCategory
+    fields = ['expense_category_name']
+    template_name = 'balance/expense_category_update_form.html'
+    success_url = reverse_lazy('expense_category_list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
 class ExpenseCategoryDeleteView(DeleteView):
     model = ExpenseCategory
-    fields = '__all__'
     template_name = 'balance/expense_category_confirm_delete.html'
     success_url = reverse_lazy('expense_category_list')
 
@@ -109,8 +118,10 @@ class ExpenseCategoryDeleteView(DeleteView):
         return qs.filter(user=self.request.user)
 
 
-class ExpenseSummaryTemplateView(TemplateView):
+class ExpenseSummaryTemplateView(PermissionRequiredMixin, TemplateView, UserPassesTestMixin):
     template_name = 'balance/expense_summary.html'
+    permission_required = ('balance.expense_summary',)
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -118,16 +129,8 @@ class ExpenseSummaryTemplateView(TemplateView):
         context['expenses'] = expenses
         categories = ExpenseCategory.objects.all()
         context['categories'] = categories
-
-        category_expenses_value = ExpenseCategory.objects.filter(
-            expenses__expense_name="Shoes").aggregate(sum=Sum('expenses__expense_value'))
-        context['category_expenses_value'] = round(category_expenses_value['sum'], 2)
-
-        category_expenses_value2 = ExpenseCategory.objects.aggregate(sum=Sum('expenses__expense_value'))
-        context['category_expenses_value2'] = round(category_expenses_value2['sum'], 2)
-
-        for element in ExpenseCategory.objects.all():
-            expenses_value_in_category = ExpenseCategory.objects.filter(expenses__expense_category=element.id).values_list("expenses__expense_value", flat=True)
-            context["expenses_value"] = sum(expenses_value_in_category)
-
+        number_of_expenses_in_category = ExpenseCategory.objects.annotate(Count('expense'))
+        context['number_of_expenses_in_category'] = number_of_expenses_in_category
+        sum_of_expenses_in_category = ExpenseCategory.objects.annotate(Sum('expense__expense_value'))
+        context['sum_of_expenses_in_category'] = sum_of_expenses_in_category
         return context

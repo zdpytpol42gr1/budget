@@ -1,0 +1,13 @@
+{% extends 'balance/base.html' %}
+{% block site_title %} Update expense category {% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update">
+</form>
+
+<button onclick="location.href='{% url 'expense_category_detail' expensecategory.id %}'" type="button">Cancel</button>
+
+{% endblock content %}

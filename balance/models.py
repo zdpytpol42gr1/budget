@@ -14,7 +14,7 @@ class Expense(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     expense_date = models.DateTimeField(default=datetime.now, blank=True, null=True)
-    expense_category = models.ForeignKey('balance.ExpenseCategory', null=True, on_delete=models.SET_NULL, related_name='expenses')
+    expense_category = models.ForeignKey('balance.ExpenseCategory', null=True, on_delete=models.SET_NULL)
 
     class Meta:
         ordering = ("-expense_date",)

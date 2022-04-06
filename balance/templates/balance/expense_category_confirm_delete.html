@@ -7,7 +7,7 @@
     <p>Are you sure you want to delete "{{ object }}"?</p>
     {{ form }}
     <input type="submit" value="Confirm">
-    <button onclick="location.href='{% url 'expense_category_detail' category.id %}'" type="button">Cancel</button>
+    <button onclick="location.href='{% url 'expense_category_detail' expensecategory.id %}'" type="button">Cancel</button>
 </form>
 
 {% endblock content %}
