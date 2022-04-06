@@ -1,0 +1,67 @@
+{% extends 'balance/base.html' %}
+{% block site_title %} Expense summary {% endblock %}
+
+{% block content %}
+
+<h2> EXPENSES SUMMARY</h2>
+
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th>Category name</th>
+        <th>Total expenses</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for category in sum_of_expenses_in_category %}
+        <tr>
+            <td>{{ category }}</td>
+            <td>{{ category.expense__expense_value__sum }}</td>
+        </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+
+
+<div id="container" style="width: 100%;">
+    <canvas id="pie-chart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script>
+    var config = {
+      type: 'pie',
+      data: {
+        datasets: [{
+          data: [{% for category in sum_of_expenses_in_category %} '{{ category.expense__expense_value__sum }}', {% endfor %}],
+          backgroundColor: [
+
+                                        'rgba(255, 127, 80, 1)',
+                                        'rgba(255, 215, 0, 1)',
+                                        'rgba(255, 206, 86, 1)',
+                                        'rgba(75, 192, 192, 1)',
+                                        'rgba(153, 102, 255, 1)',
+                                        'rgba(255, 159, 64, 1)'
+                                    ],
+          label: 'Catefories'
+        }],
+        labels: [{% for category in sum_of_expenses_in_category %} '{{ category }}',  {% endfor %}]
+      },
+      options: {
+        responsive: true
+      }
+    };
+
+    window.onload = function() {
+      var ctx = document.getElementById('pie-chart').getContext('2d');
+      window.myPie = new Chart(ctx, config);
+    };
+
+</script>
+<p>
+<div class="expenses-summary-button text-center">
+    <button onclick="location.href='{% url 'expense_list' %}'" type="button" class="btn btn-primary">Expense list
+    </button>
+</div></p>
+{% endblock content %}

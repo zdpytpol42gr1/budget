@@ -1,20 +1,43 @@
-from django.db.models import Sum
+from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
+from django.db.models import Sum, Count
 from django.urls import reverse_lazy
-from django.views.generic import (
-    ListView,
-    DetailView,
-    CreateView,
-    UpdateView,
-    DeleteView,
-)
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 
-import django_filters
+from .filters import ExpenseFilter
 from .mixins import AccessUserMixin
-from .models import Income, IncomeCategory
+from .models import Expense, ExpenseCategory
 
 
 class IncomeListView(ListView):
     model = Income
+    
+    def get_queryset(self):
+        if self.model is not None:
+            queryset = self.model.objects.filter(user=self.request.user)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+      context = super().get_context_data(**kwargs)
+
+        all_incomes_value = Expense.objects.aggregate(sum=Sum('income_value'))
+        context['all_incomes_value'] = round(all_incomes_value['sum'], 2)
+
+        all_expenses_count = Expense.objects.count()
+        context['all_incomes_count'] = all_incomes_count
+
+        main_filter = ExpenseFilter(self.request.GET, queryset=Expense.objects.all())
+        context['filter'] = main_filter
+
+        results_count = main_filter.qs.count()
+        context['results_count'] = results_count
+
+        results_value = main_filter.qs.aggregate(sum=Sum('income_value'))
+        context['results_value'] = round(results_value['sum'], 2)
+
+        return context
+
+class ExpenseListView(ListView):
+    model = Expense
 
     def get_queryset(self):
         if self.model is not None:
@@ -22,42 +45,68 @@ class IncomeListView(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        try:
-            context = super().get_context_data(**kwargs)
+      context = super().get_context_data(**kwargs)
 
-            all_incomes_value = Income.objects.aggregate(sum=Sum("income_value"))
-            context["all_incomes_value"] = round(all_incomes_value["sum"], 2)
+        all_expenses_value = Expense.objects.aggregate(sum=Sum('expense_value'))
+        context['all_expenses_value'] = round(all_expenses_value['sum'], 2)
 
-            all_incomes_count = Income.objects.count()
-            context["all_incomes_count"] = all_incomes_count
+        all_expenses_count = Expense.objects.count()
+        context['all_expenses_count'] = all_expenses_count
 
-            main_filter = IncomeFilter(self.request.GET, queryset=Income.objects.all())
-            context["filter"] = main_filter
+        main_filter = ExpenseFilter(self.request.GET, queryset=Expense.objects.all())
+        context['filter'] = main_filter
 
-            results_count = main_filter.qs.count()
-            context["results_count"] = results_count
+        results_count = main_filter.qs.count()
+        context['results_count'] = results_count
 
-            results_value = main_filter.qs.aggregate(sum=Sum("income_value"))
-            context["results_value"] = round(results_value["sum"], 2)
+        results_value = main_filter.qs.aggregate(sum=Sum('expense_value'))
+        context['results_value'] = round(results_value['sum'], 2)
 
-            return context
-
-        except TypeError:
-            pass
-
+        return context
 
 class IncomeDetailView(AccessUserMixin, DetailView):
     model = Income
+    
+    
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user self.request.user
+
+        
+class ExpenseDetailView(AccessUserMixin, DetailView):
+    model = Expense
+
 
     def test_func(self):
         obj = self.get_object()
         return obj.user == self.request.user
 
 
+
 class IncomeCreateView(CreateView):
     model = Income
-    fields = "__all__"
+    fields = ['income_name', 'income_value', 'comment', 'recurring_income', 'income_date', 'income_category']
     success_url = reverse_lazy("income_list")
+    
+        def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+class ExpenseCreateView(CreateView):
+    model = Expense
+    fields = ['expense_name', 'expense_value', 'comment', 'recurring_expense', 'expense_date', 'expense_category']
+    success_url = reverse_lazy('expense_list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class ExpenseUpdateView(UpdateView):
+    model = Expense
+    fields = ['expense_name', 'expense_value', 'comment', 'recurring_expense', 'expense_date', 'expense_category']
+    success_url = reverse_lazy('expense_list')
+
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -66,8 +115,13 @@ class IncomeCreateView(CreateView):
 
 class IncomeUpdateView(UpdateView):
     model = Income
-    fields = "__all__"
+    fields = ['income_name', 'income_value', 'comment', 'recurring_income', 'income_date', 'income_category']
     success_url = reverse_lazy("income_list")
+    
+    
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class IncomeDeleteView(DeleteView):
@@ -91,6 +145,49 @@ class IncomeCategoryCreateView(CreateView):
     template_name = "balance/income_category_form.html"
     success_url = reverse_lazy("income_category_list")
 
+    
+class ExpenseDeleteView(DeleteView):
+    model = Expense
+    success_url = reverse_lazy('expense_list')
+
+    def get_queryset(self):
+        qs = super(ExpenseDeleteView, self).get_queryset()
+        return qs.filter(user=self.request.user)
+
+
+class ExpenseCategoryListView(ListView):
+    model = ExpenseCategory
+    template_name = 'balance/expense_category_list.html'
+
+
+class ExpenseCategoryDetailView(DetailView):
+    model = ExpenseCategory
+    template_name = 'balance/expense_category_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        sum_of_expenses_in_category = ExpenseCategory.objects.annotate(sum=Sum('expense__expense_value'))
+        context['sum_of_expenses_in_category'] = sum_of_expenses_in_category
+        return context
+
+
+class ExpenseCategoryCreateView(CreateView):
+    model = ExpenseCategory
+    fields = ['expense_category_name']
+    template_name = 'balance/expense_category_form.html'
+    success_url = reverse_lazy('expense_category_list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class ExpenseCategoryUpdateView(UpdateView):
+    model = ExpenseCategory
+    fields = ['expense_category_name']
+    template_name = 'balance/expense_category_update_form.html'
+    success_url = reverse_lazy('expense_category_list')
+
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
@@ -101,3 +198,34 @@ class IncomeCategoryDeleteView(DeleteView):
     fields = "__all__"
     template_name = "balance/income_category_confirm_delete.html"
     success_url = reverse_lazy("income_category_list")
+    
+        def get_queryset(self):
+        qs = super(ExpenseCategoryDeleteView, self).get_queryset()
+        return qs.filter(user=self.request.user)
+
+class ExpenseCategoryDeleteView(DeleteView):
+    model = ExpenseCategory
+    template_name = 'balance/expense_category_confirm_delete.html'
+    success_url = reverse_lazy('expense_category_list')
+
+    def get_queryset(self):
+        qs = super(ExpenseCategoryDeleteView, self).get_queryset()
+        return qs.filter(user=self.request.user)
+
+
+class ExpenseSummaryTemplateView(PermissionRequiredMixin, TemplateView, UserPassesTestMixin):
+    template_name = 'balance/expense_summary.html'
+    permission_required = ('balance.expense_summary',)
+    login_url = reverse_lazy('login')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        expenses = Expense.objects.all()
+        context['expenses'] = expenses
+        categories = ExpenseCategory.objects.all()
+        context['categories'] = categories
+        number_of_expenses_in_category = ExpenseCategory.objects.annotate(Count('expense'))
+        context['number_of_expenses_in_category'] = number_of_expenses_in_category
+        sum_of_expenses_in_category = ExpenseCategory.objects.annotate(Sum('expense__expense_value'))
+        context['sum_of_expenses_in_category'] = sum_of_expenses_in_category
+        return context
