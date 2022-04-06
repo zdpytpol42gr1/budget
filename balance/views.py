@@ -5,7 +5,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 
 from .filters import ExpenseFilter
 from .mixins import AccessUserMixin
-from .models import Expense, ExpenseCategory
+from .models import Expense, ExpenseCategory, Income, IncomeCategory
 
 
 class IncomeListView(ListView):
@@ -17,24 +17,25 @@ class IncomeListView(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
-      context = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
-        all_incomes_value = Expense.objects.aggregate(sum=Sum('income_value'))
+        all_incomes_value = Income.objects.aggregate(sum=Sum('income_value'))
         context['all_incomes_value'] = round(all_incomes_value['sum'], 2)
 
-        all_expenses_count = Expense.objects.count()
+        all_incomes_count = Income.objects.count()
         context['all_incomes_count'] = all_incomes_count
 
-        main_filter = ExpenseFilter(self.request.GET, queryset=Expense.objects.all())
-        context['filter'] = main_filter
+        # main_filter = IncomeFilter(self.request.GET, queryset=Expense.objects.all())
+        # context['filter'] = main_filter
 
-        results_count = main_filter.qs.count()
-        context['results_count'] = results_count
+        # results_count = main_filter.qs.count()
+        # context['results_count'] = results_count
 
-        results_value = main_filter.qs.aggregate(sum=Sum('income_value'))
-        context['results_value'] = round(results_value['sum'], 2)
+        # results_value = main_filter.qs.aggregate(sum=Sum('income_value'))
+        # context['results_value'] = round(results_value['sum'], 2)
 
         return context
+
 
 class ExpenseListView(ListView):
     model = Expense
@@ -45,7 +46,7 @@ class ExpenseListView(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
-      context = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
         all_expenses_value = Expense.objects.aggregate(sum=Sum('expense_value'))
         context['all_expenses_value'] = round(all_expenses_value['sum'], 2)
@@ -70,7 +71,7 @@ class IncomeDetailView(AccessUserMixin, DetailView):
     
     def test_func(self):
         obj = self.get_object()
-        return obj.user self.request.user
+        return obj.user, self.request.user
 
         
 class ExpenseDetailView(AccessUserMixin, DetailView):
@@ -88,7 +89,7 @@ class IncomeCreateView(CreateView):
     fields = ['income_name', 'income_value', 'comment', 'recurring_income', 'income_date', 'income_category']
     success_url = reverse_lazy("income_list")
     
-        def form_valid(self, form):
+    def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
 
@@ -199,7 +200,7 @@ class IncomeCategoryDeleteView(DeleteView):
     template_name = "balance/income_category_confirm_delete.html"
     success_url = reverse_lazy("income_category_list")
     
-        def get_queryset(self):
+    def get_queryset(self):
         qs = super(ExpenseCategoryDeleteView, self).get_queryset()
         return qs.filter(user=self.request.user)
 

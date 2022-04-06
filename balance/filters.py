@@ -21,7 +21,8 @@ class IncomeFilter(django_filters.FilterSet):
         queryset=IncomeCategory.objects.all(), label="income_category"
     )
 
-    class ExpenseFilter(django_filters.FilterSet):
+
+class ExpenseFilter(django_filters.FilterSet):
     expense_value = django_filters.NumberFilter(field_name='expense_value', label='exact value')
     expense_value__gte = django_filters.NumberFilter(field_name='expense_value', lookup_expr='gte', label='from')
     expense_value__lte = django_filters.NumberFilter(field_name='expense_value', lookup_expr='lte', label='to')
