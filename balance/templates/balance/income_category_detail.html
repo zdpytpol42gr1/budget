@@ -1,0 +1,15 @@
+{% extends 'balance/base.html' %}
+{% block site_title %} Category details {% endblock %}
+
+{% block content %}
+<h2> Category detail</h2>
+
+<p>Category name: {{ object.income_category_name }}</br>
+    Items in category: NEED TO BE ADDED </br>
+    Total value of category: NEED TO BE ADDED</br></p>
+
+<button onclick='location.href='{% url 'income_category_edit' income_category.id %}'" type="button">Edit income category</button>
+<button onclick="location.href='{% url 'category_delete' income_category.id %}'" type="button">Delete income category</button>
+<button onclick="location.href='{% url 'category_list' %}'" type="button">Back to income category list</button>
+
+{% endblock content %}

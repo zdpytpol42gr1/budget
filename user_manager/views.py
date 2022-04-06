@@ -92,6 +92,7 @@ class SignUpView(SuccessMessageMixin, CreateView):
             return redirect("main:homepage")
         messages.error(request, "Unsuccessful registration. Invalid information.")
     form = NewUserForm()
+
     return render(request=request, template_name="user_manager/register.html", context={"register_form": form})
 
 
@@ -101,3 +102,5 @@ def first_page(request):
 
 def balance_view(request):
     return render(request=request, template_name="user_manager/index.html")
+
+  

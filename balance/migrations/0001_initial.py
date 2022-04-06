@@ -18,34 +18,28 @@ class Migration(migrations.Migration):
     operations = [
         migrations.CreateModel(
 
-            name='ExpenseCategory',
+            name="Income",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('expense_category_name', models.CharField(max_length=100, unique=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-            ],
-            options={
-                'verbose_name_plural': 'Expense Categories',
-                'ordering': ('expense_category_name',),
-            },
-        ),
-        migrations.CreateModel(
-            name='Expense',
-            fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('expense_name', models.CharField(max_length=50)),
-                ('expense_value', models.DecimalField(decimal_places=2, max_digits=10, validators=[django.core.validators.MinValueValidator(0.01)])),
-                ('comment', models.TextField(blank=True)),
-                ('recurring_expense', models.BooleanField()),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('expense_date', models.DateTimeField(blank=True, default=datetime.datetime.now, null=True)),
-                ('expense_category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='balance.expensecategory')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='expenses', to=settings.AUTH_USER_MODEL)),
-
-            ],
-            options={
-                'ordering': ('-expense_date',),
-            },
-        ),
-    ]
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=30)),
+                ("value", models.DecimalField(decimal_places=2, max_digits=6)),
+                ("comment", models.CharField(max_length=100)),
+                ("recurring_income", models.BooleanField()),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="incomes",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
