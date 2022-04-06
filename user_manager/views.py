@@ -19,8 +19,8 @@ def register_view(request):
 
 
 def first_page(request):
-    return render(request=request, template_name="user_manager/menu_bar.html")
+    return render(request=request, template_name="user_manager/index.html")
 
 
 def balance_view(request):
-    return render(request=request, template_name="user_manager/balance.html")
+    return render(request=request, template_name="user_manager/index.html")
