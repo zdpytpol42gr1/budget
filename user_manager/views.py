@@ -87,20 +87,3 @@ class SignUpView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy("login")
     form_class = UserRegisterForm
     success_message = "Your profile was created successfully"
-            login(request, user)
-            messages.success(request, "Registration successful.")
-            return redirect("main:homepage")
-        messages.error(request, "Unsuccessful registration. Invalid information.")
-    form = NewUserForm()
-
-    return render(request=request, template_name="user_manager/register.html", context={"register_form": form})
-
-
-def first_page(request):
-    return render(request=request, template_name="user_manager/index.html")
-
-
-def balance_view(request):
-    return render(request=request, template_name="user_manager/index.html")
-
-  
