@@ -17,6 +17,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+
             name='ExpenseCategory',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -41,6 +42,7 @@ class Migration(migrations.Migration):
                 ('expense_date', models.DateTimeField(blank=True, default=datetime.datetime.now, null=True)),
                 ('expense_category', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='balance.expensecategory')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='expenses', to=settings.AUTH_USER_MODEL)),
+
             ],
             options={
                 'ordering': ('-expense_date',),

@@ -17,4 +17,4 @@ urlpatterns = [
     path('category-update/<int:pk>', ExpenseCategoryUpdateView.as_view(), name='expense_category_update'),
     path('category-delete/<int:pk>', ExpenseCategoryDeleteView.as_view(), name='expense_category_delete'),
     path('expense-summary/', ExpenseSummaryTemplateView.as_view(), name='expense_summary'),
-]
+
