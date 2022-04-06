@@ -29,7 +29,7 @@ class Migration(migrations.Migration):
                 ("name", models.CharField(max_length=30)),
                 ("value", models.DecimalField(decimal_places=2, max_digits=6)),
                 ("comment", models.CharField(max_length=100)),
-                ("cyclical_income", models.BooleanField()),
+                ("recurring_income", models.BooleanField()),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 ("updated_at", models.DateTimeField(auto_now=True)),
                 (

@@ -1,18 +1,27 @@
-{% extends 'balance/base_generic.html' %}
+{% extends 'balance/base.html' %}
+{% block site_title %} Income categories {% endblock %}
 
 {% block content %}
-  <h1>Income Category List</h1>
-  {% if income_category_list %}
-  <ul>
-    {% for income_category in income_category_list %}
-      <li>
-        <a href="{% url 'income_category_detail' income_category.id %}">{{ income_category.title }}</a>
-      </li>
+<h1>Income categories list view</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for category in object_list %}
+    <tr>
+        <td><a href="{% url 'income_category_detail' category.id %}">{{ category.income_category_name }}</a></td>
+    </tr>
+    {% empty %}
+    No categories yet
     {% endfor %}
-  </ul>
-  {% else %}
-    <p>There are no income categories</p>
-  {% endif %}
-<p>No. of income categories: {{ incomes_category_counter }} </p>
-  <a href="{% url 'income_category_add' %}"> Add income category </a>
-{% endblock %}
+    </tbody>
+</table>
+
+<button onclick="location.href='{% url 'income_category_create' %}'" type="button">Add new income category</button>
+<button onclick="location.href='{% url 'income_list' %}'" type="button">Back to incomes list</button>
+
+{% endblock content %}

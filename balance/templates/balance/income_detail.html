@@ -1,14 +1,17 @@
-{% extends 'balance/base_generic.html' %}
-
-{% block site_title %} Income: {{ income.name }} {% endblock %}
+{% extends 'balance/base.html' %}
+{% block site_title %} Income details {% endblock %}
 
 {% block content %}
-    <h2>Income details</h2>
-    Title: {{ income.name }}<br>
-    Value: {{ income.income_value }}<br>
-    Income category: {{ income.income_category }} <br>
-    Created at: {{ income.created_at }} <br>
-    Updated at: {{ income.updated_at }} <br>
-    <a href="{% url 'income_edit' income.id %}"> Edit income </a><br>
-    <a href="{% url 'income_delete' income.id %}"> Delete income </a>
-{% endblock %}
+<h2> Income detail</h2>
+
+<p>Income name: {{ object.income_name }}</br>
+    Income value: {{ object.income_value }}</br>
+    Comment: {{ object.comment }}</br>
+    Income date: {{ object.income_date }}</br>
+    Income category: {{ object.income_category }}</br></p>
+
+<button onclick="location.href='{% url 'income_update' income.id %}'" type="button">Edit income</button>
+<button onclick="location.href='{% url 'income_delete' income.id %}'" type="button">Delete income</button>
+<button onclick="location.href='{% url 'income_list' %}'" type="button">Back to incomes list</button>
+
+{% endblock content %}

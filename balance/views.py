@@ -1,19 +1,20 @@
+from django.db.models import Sum
 from django.urls import reverse_lazy
 from django.views.generic import (
     ListView,
-    CreateView,
     DetailView,
-    DeleteView,
+    CreateView,
     UpdateView,
+    DeleteView,
 )
 
+import django_filters
 from .mixins import AccessUserMixin
 from .models import Income, IncomeCategory
 
 
 class IncomeListView(ListView):
     model = Income
-    template_name = "balance/income_list.html"
 
     def get_queryset(self):
         if self.model is not None:
@@ -21,20 +22,41 @@ class IncomeListView(ListView):
         return queryset
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        incomes_value = Income.objects.filter(user=self.request.user).values_list(
-            "income_value", flat=True
-        )
-        context["incomes_value"] = sum(incomes_value)
-        incomes_counter = Income.objects.filter(user=self.request.user).count()
-        context["incomes_counter"] = incomes_counter
-        return context
+        try:
+            context = super().get_context_data(**kwargs)
+
+            all_incomes_value = Income.objects.aggregate(sum=Sum("income_value"))
+            context["all_incomes_value"] = round(all_incomes_value["sum"], 2)
+
+            all_incomes_count = Income.objects.count()
+            context["all_incomes_count"] = all_incomes_count
+
+            main_filter = IncomeFilter(self.request.GET, queryset=Income.objects.all())
+            context["filter"] = main_filter
+
+            results_count = main_filter.qs.count()
+            context["results_count"] = results_count
+
+            results_value = main_filter.qs.aggregate(sum=Sum("income_value"))
+            context["results_value"] = round(results_value["sum"], 2)
+
+            return context
+
+        except TypeError:
+            pass
+
+
+class IncomeDetailView(AccessUserMixin, DetailView):
+    model = Income
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
 
 
 class IncomeCreateView(CreateView):
     model = Income
-    fields = ["name", "income_value", "comment", "recurring_income", "income_category"]
-    template_name = "balance/income_form.html"
+    fields = "__all__"
     success_url = reverse_lazy("income_list")
 
     def form_valid(self, form):
@@ -42,52 +64,30 @@ class IncomeCreateView(CreateView):
         return super().form_valid(form)
 
 
-class IncomeDetailView(AccessUserMixin, DetailView):
+class IncomeUpdateView(UpdateView):
     model = Income
-    template_name = "balance/income_detail.html"
-
-
-class IncomeUpdateView(AccessUserMixin, UpdateView):
-    model = Income
-    fields = ["name", "income_value", "comment", "recurring_income"]
-    template_name = "balance/income_form.html"
+    fields = "__all__"
     success_url = reverse_lazy("income_list")
 
 
 class IncomeDeleteView(DeleteView):
     model = Income
-    template_name = "balance/income_confirm_delete.html"
     success_url = reverse_lazy("income_list")
-
-    def get_object(self, queryset=None):
-        obj = super(IncomeDeleteView, self).get_object()
-        if not obj.user == self.request.user:
-            raise Exception("That's not your Income!")
-        return obj
 
 
 class IncomeCategoryListView(ListView):
     model = IncomeCategory
-    context_object_name = "income_category_list"
-    queryset = IncomeCategory.objects.all()
     template_name = "balance/income_category_list.html"
 
-    def get_queryset(self):
-        if self.model is not None:
-            queryset = self.model.objects.filter(user=self.request.user)
-        return queryset
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        incomes_category_counter = IncomeCategory.objects.filter(
-            user=self.request.user
-        ).count()
-        context["incomes_category_counter"] = incomes_category_counter
-        return context
+class IncomeCategoryDetailView(DetailView):
+    model = IncomeCategory
+    fields = "__all__"
 
 
 class IncomeCategoryCreateView(CreateView):
     model = IncomeCategory
+    fields = "__all__"
     template_name = "balance/income_category_form.html"
     success_url = reverse_lazy("income_category_list")
 
@@ -96,23 +96,8 @@ class IncomeCategoryCreateView(CreateView):
         return super().form_valid(form)
 
 
-class IncomeCategoryDetailView(AccessUserMixin, DetailView):
-    model = IncomeCategory
-    template_name = "balance/income_category_detail.html"
-
-
-class IncomeCategoryUpdateView(AccessUserMixin, UpdateView):
-    model = IncomeCategory
-    fields = ["title", "comment"]
-    template_name = "balance/income_category_form.html"
-    success_url = reverse_lazy("income_category_list")
-
-
 class IncomeCategoryDeleteView(DeleteView):
     model = IncomeCategory
+    fields = "__all__"
     template_name = "balance/income_category_confirm_delete.html"
     success_url = reverse_lazy("income_category_list")
-
-    def get_queryset(self):
-        qs = super(IncomeCategoryDeleteView, self).get_queryset()
-        return qs.filter(user=self.request.user)

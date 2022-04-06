@@ -1,0 +1,13 @@
+{% extends 'balance/base.html' %}
+{% block site_title %} Update income {% endblock %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Update">
+</form>
+
+<button onclick="location.href='{% url 'income_detail' income.id %}'" type="button">Cancel</button>
+
+{% endblock content %}

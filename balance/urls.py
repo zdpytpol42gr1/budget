@@ -1,44 +1,41 @@
 from django.urls import path
 
-from balance import views
+from .views import (
+    IncomeListView,
+    IncomeDetailView,
+    IncomeCreateView,
+    IncomeUpdateView,
+    IncomeDeleteView,
+    IncomeCategoryListView,
+    IncomeCategoryDetailView,
+    IncomeCategoryCreateView,
+    IncomeCategoryDeleteView,
+)
 
 urlpatterns = [
-    path("incomes/", views.IncomeListView.as_view(), name="income_list"),
-    path("income-add/", views.IncomeCreateView.as_view(), name="income_add"),
+    path("income-list/", IncomeListView.as_view(), name="income_list"),
+    path("income-detail/<int:pk>", IncomeDetailView.as_view(), name="income_detail"),
+    path("income-create/", IncomeCreateView.as_view(), name="income_create"),
+    path("income-update/<int:pk>", IncomeUpdateView.as_view(), name="income_update"),
+    path("income-delete/<int:pk>", IncomeDeleteView.as_view(), name="income_delete"),
     path(
-        "income-detail/<int:pk>/",
-        views.IncomeDetailView.as_view(),
-        name="income_detail",
-    ),
-    path("income-edit/<int:pk>/", views.IncomeUpdateView.as_view(), name="income_edit"),
-    path(
-        "income-delete/<int:pk>/",
-        views.IncomeDeleteView.as_view(),
-        name="income_delete",
-    ),
-    path(
-        "income-categories/",
-        views.IncomeCategoryListView.as_view(),
+        "income-category-list/",
+        IncomeCategoryListView.as_view(),
         name="income_category_list",
     ),
     path(
-        "income-category-add/",
-        views.IncomeCategoryCreateView.as_view(),
-        name="income_category_add",
-    ),
-    path(
-        "income-category-detail/<int:pk>/",
-        views.IncomeCategoryDetailView.as_view(),
+        "income-category-detail/<int:pk>",
+        IncomeCategoryDetailView.as_view(),
         name="income_category_detail",
     ),
     path(
-        "income-category-edit/<int:pk>/",
-        views.IncomeCategoryUpdateView.as_view(),
-        name="income_category_edit",
+        "income-category-create/",
+        IncomeCategoryCreateView.as_view(),
+        name="income_category_create",
     ),
     path(
-        "income-category-delete/<int:pk>/",
-        views.IncomeCategoryDeleteView.as_view(),
+        "income-category-delete/<int:pk>",
+        IncomeCategoryDeleteView.as_view(),
         name="income_category_delete",
     ),
 ]
