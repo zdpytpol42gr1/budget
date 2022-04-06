@@ -6,4 +6,4 @@ from . import models
 class IncomeForm(forms.ModelForm):
     class Meta:
         model = models.Income
-        fields = '__all__'
+        fields = "__all__"

@@ -11,7 +11,6 @@ class Income(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='incomes')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    #income_category = models.ForeignKey(IncomeCategory, null=True, on_delete=models.PROTECT)
 
     class Meta:
         ordering = ('id',)
