@@ -1,0 +1,27 @@
+{% extends 'balance/base.html' %}
+{% block site_title %} Categories {% endblock %}
+
+{% block content %}
+<h1>Category list view</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for category in object_list %}
+    <tr>
+        <td><a href="{% url 'expense_category_detail' category.id %}">{{ category.expense_category_name }}</a></td>
+    </tr>
+    {% empty %}
+    No categories yet
+    {% endfor %}
+    </tbody>
+</table>
+
+<button onclick="location.href='{% url 'expense_category_create' %}'" type="button">Add new category</button>
+<button onclick="location.href='{% url 'expense_list' %}'" type="button">Back to main menu</button>
+
+{% endblock content %}

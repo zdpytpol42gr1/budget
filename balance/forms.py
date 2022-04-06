@@ -1,9 +1,15 @@
 from django import forms
-from django.forms import ModelForm
-from . import models
+
+from .models import Expense, ExpenseCategory
 
 
-class IncomeForm(forms.ModelForm):
+class ExpenseForm(forms.ModelForm):
     class Meta:
-        model = models.Income
-        fields = "__all__"
+        model = Expense
+        fields = ['expense_name', 'expense_value', 'comment', 'recurring_expense']
+
+
+class ExpenseCategory(forms.ModelForm):
+    class Meta:
+        model = ExpenseCategory
+        fields = ['expense_category_name']

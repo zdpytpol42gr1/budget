@@ -1,18 +1,136 @@
-from django.shortcuts import render
-from .forms import IncomeForm
+from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
+from django.db.models import Sum, Count
+from django.urls import reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
+
+from .filters import ExpenseFilter
+from .mixins import AccessUserMixin
+from .models import Expense, ExpenseCategory
 
 
-def balance_view(request):
-    form = IncomeForm(request.POST)
-
-    # if form.is_valid():
-    #     form.save()
-    return render(request, "balance/panel.html", {"form": form})
+class ExpenseListView(ListView):
+    model = Expense
 
 
-def incomes_view(request, id):
-    pass
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        all_expenses_value = Expense.objects.aggregate(sum=Sum('expense_value'))
+        context['all_expenses_value'] = round(all_expenses_value['sum'], 2)
+
+        all_expenses_count = Expense.objects.count()
+        context['all_expenses_count'] = all_expenses_count
+
+        main_filter = ExpenseFilter(self.request.GET, queryset=Expense.objects.all())
+        context['filter'] = main_filter
+
+        results_count = main_filter.qs.count()
+        context['results_count'] = results_count
+
+        results_value = main_filter.qs.aggregate(sum=Sum('expense_value'))
+        context['results_value'] = round(results_value['sum'], 2)
+
+        return context
 
 
-def expenses_view(request, id):
-    pass
+class ExpenseDetailView(AccessUserMixin, DetailView):
+    model = Expense
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.user == self.request.user
+
+
+class ExpenseCreateView(CreateView):
+    model = Expense
+    fields = ['expense_name', 'expense_value', 'comment', 'recurring_expense', 'expense_date', 'expense_category']
+    success_url = reverse_lazy('expense_list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class ExpenseUpdateView(UpdateView):
+    model = Expense
+    fields = ['expense_name', 'expense_value', 'comment', 'recurring_expense', 'expense_date', 'expense_category']
+    success_url = reverse_lazy('expense_list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class ExpenseDeleteView(DeleteView):
+    model = Expense
+    success_url = reverse_lazy('expense_list')
+
+    def get_queryset(self):
+        qs = super(ExpenseDeleteView, self).get_queryset()
+        return qs.filter(user=self.request.user)
+
+
+class ExpenseCategoryListView(ListView):
+    model = ExpenseCategory
+    template_name = 'balance/expense_category_list.html'
+
+
+class ExpenseCategoryDetailView(DetailView):
+    model = ExpenseCategory
+    template_name = 'balance/expense_category_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        sum_of_expenses_in_category = ExpenseCategory.objects.annotate(sum=Sum('expense__expense_value'))
+        context['sum_of_expenses_in_category'] = sum_of_expenses_in_category
+        return context
+
+
+class ExpenseCategoryCreateView(CreateView):
+    model = ExpenseCategory
+    fields = ['expense_category_name']
+    template_name = 'balance/expense_category_form.html'
+    success_url = reverse_lazy('expense_category_list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class ExpenseCategoryUpdateView(UpdateView):
+    model = ExpenseCategory
+    fields = ['expense_category_name']
+    template_name = 'balance/expense_category_update_form.html'
+    success_url = reverse_lazy('expense_category_list')
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
+class ExpenseCategoryDeleteView(DeleteView):
+    model = ExpenseCategory
+    template_name = 'balance/expense_category_confirm_delete.html'
+    success_url = reverse_lazy('expense_category_list')
+
+    def get_queryset(self):
+        qs = super(ExpenseCategoryDeleteView, self).get_queryset()
+        return qs.filter(user=self.request.user)
+
+
+class ExpenseSummaryTemplateView(PermissionRequiredMixin, TemplateView, UserPassesTestMixin):
+    template_name = 'balance/expense_summary.html'
+    permission_required = ('balance.expense_summary',)
+    login_url = reverse_lazy('login')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        expenses = Expense.objects.all()
+        context['expenses'] = expenses
+        categories = ExpenseCategory.objects.all()
+        context['categories'] = categories
+        number_of_expenses_in_category = ExpenseCategory.objects.annotate(Count('expense'))
+        context['number_of_expenses_in_category'] = number_of_expenses_in_category
+        sum_of_expenses_in_category = ExpenseCategory.objects.annotate(Sum('expense__expense_value'))
+        context['sum_of_expenses_in_category'] = sum_of_expenses_in_category
+        return context
