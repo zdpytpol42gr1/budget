@@ -1,13 +1,14 @@
-{% extends 'balance/base.html' %}
+{% extends 'user_manager/base.html' %}
 {% block site_title %} Update expense {% endblock %}
+{% block page_heading %} Update expense {% endblock page_heading %}
 
 {% block content %}
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Update">
+    <input type="submit" class="btn btn-primary" value="Update">
+    <a href="{% url 'expense_detail' expense.id %}" class="btn btn-primary">Cancel</a>
 </form>
-
-<button onclick="location.href='{% url 'expense_detail' expense.id %}'" type="button">Cancel</button>
 
 {% endblock content %}

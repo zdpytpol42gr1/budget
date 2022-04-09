@@ -22,8 +22,6 @@ class Income(models.Model):
 
     class Meta:
         ordering = ("-income_date",)
-        verbose_name = "Income"
-        verbose_name_plural = "Incomes"
 
     def __str__(self):
         return self.income_name
