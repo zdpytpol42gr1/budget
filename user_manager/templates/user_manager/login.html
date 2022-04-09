@@ -1,25 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-<!-- <<<<<<< registration
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body> -->
 
-<!--     <form method="post">
-        {{ form.as_p }}
-        {% csrf_token %}
-        <button type="submit" >Submit</button>
-    </form><br>
-
-    <a href="{% url 'register' %}">Registration</a>
-
-    {% for message in messages %}
-        <p id="messages">{{ message }}</p>
-    {% endfor %} -->
-
-<!-- </body> -->
+{% load static %}
 
 <head>
 
@@ -32,18 +14,17 @@
     <title>SB Admin 2 - Login</title>
 
     <!-- Custom fonts for this template-->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        href="{% static 'https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i' %}"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="{% static 'css/sb-admin-2.min.css' %}" rel="stylesheet">
 
 </head>
 
 <body class="bg-gradient-primary">
-
     <div class="container">
 
         <!-- Outer Row -->
@@ -61,7 +42,7 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form method="post" class="user">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             {{ form.username.label }}
@@ -78,23 +59,18 @@
                                                     Me</label>
                                             </div>
                                         </div>
-                                        <a href="{% url 'index' %}" class="btn btn-primary btn-user btn-block">
-                                            Login
                                         </a>
-                                        <hr>
-                                        <a href="index.html" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Login with Google
-                                        </a>
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
-                                        </a>
+                                        <button type="submit" class="btn btn-primary">Login</button>
+                                        {% for message in messages %}
+                                            <p id="messages">{{ message }}</p>
+                                        {% endfor %}
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        <a class="small" href="{% url 'change_password' %}">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                        <a class="small" href="{% url 'register' %}">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>
@@ -109,14 +85,14 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/vendor/jquery/jquery.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="/static/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="/static/js/sb-admin-2.min.js"></script>
 
 </body>
 </html>

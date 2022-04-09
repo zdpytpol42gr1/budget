@@ -26,7 +26,8 @@
 </head>
 
 <body class="bg-gradient-primary">
-
+{{ user }}
+<a href="{% url 'logout' %}">Logout</a>
     <div class="container">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
@@ -61,24 +62,15 @@
                                         {{ form.password2 }}
                                     </div>
                                 </div>
-                                <a href="{% url 'login' %}" class="btn btn-primary btn-user btn-block">
-                                    Register Account
-                                    <button type="submit">Add</button>
-                                </a>
-                                <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
+                                <button type="submit" class="btn btn-primary">Register</button>
+                                {{ form.errors }}
+
                             </form>
-                            <hr>
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                <a class="small" href="{% url 'change_password' %}">Forgot Password?</a>
                             </div>
                             <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>

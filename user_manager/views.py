@@ -5,26 +5,22 @@ from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from .forms import LoginForm
+from .forms import LoginForm, PasswordChangingForm
 from django.views.generic import View
 from .forms import UserRegisterForm
 from django.views.generic.edit import CreateView
 
 
-class IndexView(View):
-    template_name = 'user_manager/index.html'
-
-
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return redirect("index")
+        return redirect("change_password")
 
 
 class ResetPasswordView(View):
-    template_name = "user_manager/change_password.html"
-    success_url = reverse_lazy("index")
-    form_class = PasswordChangeForm
+    template_name = "user_manager/forgot-password.html"
+    success_url = reverse_lazy("change_password")
+    form_class = PasswordChangingForm
 
     def get(self, request):
         form = self.form_class(User)
@@ -40,7 +36,7 @@ class ResetPasswordView(View):
 
             update_session_auth_hash(request, user)
             messages.success(request, "Your password was successfully updated!")
-            return redirect("index")
+            return redirect("change_password")
         else:
             messages.error(request, "Please correct the error below.")
         form = PasswordChangeForm(request.user)
@@ -54,7 +50,7 @@ class LoginPageView(View):
     def get(self, request):
 
         if self.request.user.is_authenticated:
-            return redirect("index")
+            return redirect("change_password")
         form = self.form_class()
         message = ""
         return render(
@@ -70,7 +66,7 @@ class LoginPageView(View):
             )
             if user is not None:
                 login(request, user)
-                return redirect("index")
+                return redirect("change_password")
         message = "Login failed!"
         return render(
             request, self.template_name, context={"form": form, "message": message}
@@ -82,3 +78,4 @@ class SignUpView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy("login")
     form_class = UserRegisterForm
     success_message = "Your profile was created successfully"
+
