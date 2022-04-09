@@ -12,6 +12,13 @@ from .forms import UserRegisterForm
 from django.views.generic.edit import CreateView
 
 
+class BaseView(View):
+    template_name = "user_manager/base_view.html"
+
+    def get(self, request):
+        return render(request, self.template_name)
+
+
 class LogoutView(View):
     def get(self, request):
         logout(request)
