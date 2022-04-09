@@ -26,8 +26,6 @@
 </head>
 
 <body class="bg-gradient-primary">
-{{ user }}
-<a href="{% url 'logout' %}">Logout</a>
     <div class="container">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
@@ -66,9 +64,6 @@
                                 {{ form.errors }}
 
                             </form>
-                            <div class="text-center">
-                                <a class="small" href="{% url 'change_password' %}">Forgot Password?</a>
-                            </div>
                             <div class="text-center">
                                 <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
                             </div>
