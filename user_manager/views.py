@@ -6,29 +6,24 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from .forms import LoginForm
-from django.views.generic import View, ListView, TemplateView
+from django.views.generic import View
 from .forms import UserRegisterForm
 from django.views.generic.edit import CreateView
 
 
-class HiPageView(TemplateView):
-    template_name = "user_manager/hi_page.html"
+class IndexView(View):
+    template_name = 'user_manager/index.html'
 
 
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return redirect("hi_page")
-
-
-class UserListView(ListView):
-    model = User
-    template_name = "user_manager/user_list.html"
+        return redirect("index")
 
 
 class ResetPasswordView(View):
     template_name = "user_manager/change_password.html"
-    success_url = reverse_lazy("hi_page")
+    success_url = reverse_lazy("index")
     form_class = PasswordChangeForm
 
     def get(self, request):
@@ -45,7 +40,7 @@ class ResetPasswordView(View):
 
             update_session_auth_hash(request, user)
             messages.success(request, "Your password was successfully updated!")
-            return redirect("hi_page")
+            return redirect("index")
         else:
             messages.error(request, "Please correct the error below.")
         form = PasswordChangeForm(request.user)
@@ -59,7 +54,7 @@ class LoginPageView(View):
     def get(self, request):
 
         if self.request.user.is_authenticated:
-            return redirect("hi_page")
+            return redirect("index")
         form = self.form_class()
         message = ""
         return render(
@@ -75,7 +70,7 @@ class LoginPageView(View):
             )
             if user is not None:
                 login(request, user)
-                return redirect("hi_page")
+                return redirect("index")
         message = "Login failed!"
         return render(
             request, self.template_name, context={"form": form, "message": message}
