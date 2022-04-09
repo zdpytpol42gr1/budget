@@ -273,5 +273,4 @@ class DashboardTemplateView(TemplateView):
 
         context["sum_of_expenses_in_category"] = sum_of_expenses_in_category
 
-
         return context
