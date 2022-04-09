@@ -17,8 +17,10 @@
         <td>{{ expense }}</td>
         <td>{{ expense.expense_value }}</td>
     </tr>
-    {% endfor %}
     </tbody>
+    {% empty %}
+    No categories yet
+    {% endfor %}
 </table>
 <a href="{% url 'expense_category_delete' expensecategory.id %}" class="btn btn-primary">Delete category</a>
 <a href="{% url 'expense_category_update' expensecategory.id %}" class="btn btn-primary">Edit category</a>
