@@ -4,6 +4,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
 
+User = get_user_model()
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=63, widget=forms.TextInput(attrs={'class': "form-control"}))

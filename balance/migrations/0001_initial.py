@@ -17,7 +17,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-
             name="Income",
             fields=[
                 (
@@ -43,6 +42,6 @@ class Migration(migrations.Migration):
                         to=settings.AUTH_USER_MODEL,
                     ),
                 ),
-        ]
-    )
-]
+            ],
+        )
+    ]

@@ -1,18 +1,13 @@
-{% extends 'balance/base.html' %}
+{% extends 'user_manager/base.html' %}
 {% block site_title %} Expenses {% endblock %}
+{% block page_heading %} Expense list {% endblock page_heading %}
 
 
 {% block content %}
 
-
-<div class="header text-center">
-    <p>
-    <h1>Expense list view</h1></p>
-</div>
-
-<div class="filter text-center">
+<div class="filter">
     <form method="GET">
-        {{ filter.form }}
+        {{ filter.form.as_p }}
         <p>
         <div class="filter-buttons text-center">
             <button type="submit" class="btn btn-warning">Filter</button>
@@ -73,24 +68,20 @@
         </div>
     </div>
 </div>
-<p>
-<div class="bottom-buttons text-center">
-    <button onclick="location.href='{% url 'expense_create' %}'" type="button" class="btn btn-warning">Add expense
-    </button>
-    <button onclick="location.href='{% url 'expense_category_create' %}'" type="button" class="btn btn-warning">Add new
-        category
-    </button>
+
+
+<p><div class="bottom-buttons text-center col-bg-6">
+                <a href="{% url 'expense_create' %}" class="btn btn-warning">Add expense</a>
+                <a href="{% url 'expense_category_create' %}" class="btn btn-warning">Add new category</a>
 </div></p>
 
-<p>
-<div class="expenses-summary-button text-center">
-    <button onclick="location.href='{% url 'expense_summary' %}'" type="button" class="btn btn-primary">Expenses summary
-    </button>
+<p><div class="bottom-buttons text-center">
+    <a href="{% url 'dashboard' %}" class="btn btn-primary">Dashboard</a>
 </div></p>
 
-<p>
-<div class="main-menu-button text-center">
-    <button onclick="location.href='#'" type="button" class="btn btn-primary">Back to main menu</button>
-</div></p>
+
+<div id="container" style="width: 100%;">
+    <canvas id="pie-chart"></canvas>
+</div>
 
 {% endblock content %}
