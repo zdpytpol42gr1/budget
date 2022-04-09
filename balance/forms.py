@@ -16,13 +16,13 @@ class IncomeForm(forms.ModelForm):
         fields = ["income_name", "income_value", "comment", "recurring_income"]
 
 
-class ExpenseCategory(forms.ModelForm):
+class ExpenseCategoryForm(forms.ModelForm):
     class Meta:
         model = ExpenseCategory
         fields = ["expense_category_name"]
 
 
-class IncomeCategory(forms.ModelForm):
+class IncomeCategoryForm(forms.ModelForm):
     class Meta:
         model = IncomeCategory
         fields = ["income_category_name"]

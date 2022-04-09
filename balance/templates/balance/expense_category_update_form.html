@@ -1,13 +1,14 @@
-{% extends 'balance/base.html' %}
-{% block site_title %} Update expense category {% endblock %}
+{% extends 'user_manager/base.html' %}
+{% block site_title %} Category update {% endblock %}
+{% block page_heading %} Category update {% endblock page_heading %}
 
 {% block content %}
+
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Update">
+    <input type="submit" class="btn btn-primary" value="Update">
+    <a href="{% url 'expense_category_detail' expensecategory.id %}" class="btn btn-primary">Cancel</a>
 </form>
-
-<button onclick="location.href='{% url 'expense_category_detail' expensecategory.id %}'" type="button">Cancel</button>
 
 {% endblock content %}

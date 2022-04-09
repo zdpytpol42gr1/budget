@@ -1,14 +1,16 @@
-{% extends 'balance/base.html' %}
+{% extends 'user_manager/base.html' %}
 {% block site_title %} New category {% endblock %}
+{% block page_heading %} Add new category {% endblock page_heading %}
 
 {% block content %}
-<h1>ADD NEW CATEGORY</h1>
+
 <form method="post" novalidate>
     {% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Save">
+    <a href="{% url 'expense_category_list' %}">
+        <input type="submit" class="btn btn-primary" value="Save">
+    </a>
+<a href="{% url 'expense_category_list' %}" class="btn btn-primary">Cancel</a>
 </form>
-
-<button onclick="location.href='{% url 'expense_category_list' %}'" type="button">Back to category list</button>
 
 {% endblock content %}

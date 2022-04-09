@@ -19,8 +19,7 @@ from .views import (
     ExpenseCategoryDetailView,
     ExpenseCategoryCreateView,
     ExpenseCategoryDeleteView,
-    ExpenseSummaryTemplateView,
-    ExpenseCategoryUpdateView,
+    ExpenseCategoryUpdateView, DashboardTemplateView,
 )
 
 urlpatterns = [
@@ -80,6 +79,6 @@ urlpatterns = [
         name="expense_category_delete",
     ),
     path(
-        "expense-summary/", ExpenseSummaryTemplateView.as_view(), name="expense_summary"
-    ),
+        "dashboard/", DashboardTemplateView.as_view(), name="dashboard"
+    )
 ]
