@@ -280,10 +280,10 @@ class DashboardTemplateView(TemplateView):
         context["categories"] = categories
 
         all_expenses_value = Expense.objects.aggregate(sum=Sum("expense_value"))
-        context["all_expenses_value"] = all_expenses_value["sum"]
+        context["all_expenses_value"] = all_expenses_value["sum"].quantize(Decimal('1.00'))
 
         all_incomes_value = Income.objects.aggregate(sum=Sum("income_value"))
-        context["all_incomes_value"] = all_incomes_value["sum"]
+        context["all_incomes_value"] = all_incomes_value["sum"].quantize(Decimal('1.00'))
 
         sum_of_expenses_in_category = ExpenseCategory.objects.annotate(
             Sum("expense__expense_value"))
@@ -328,39 +328,39 @@ class DashboardTemplateView(TemplateView):
             sum=(Coalesce(Sum("expense_value"), Decimal("0"))))
         context["december_expenses"] = december_expenses["sum"]
 
-        january_incomes = Income.objects.filter(income_date__month=1).aggregate(sum=(Coalesce(Sum("income_value"), Decimal("0"))))
+        january_incomes = Income.objects.filter(income_date__month=1).aggregate(sum=(Coalesce(Sum("income_value"), Decimal("0.00"))))
         context["january_incomes"] = january_incomes["sum"]
-        february_incomes = Income.objects.filter(income_date__month=2).aggregate(sum=(Coalesce(Sum("income_value"), Decimal("0"))))
+        february_incomes = Income.objects.filter(income_date__month=2).aggregate(sum=(Coalesce(Sum("income_value"), Decimal("0.00"))))
         context["february_incomes"] = february_incomes["sum"]
         march_incomes = Income.objects.filter(income_date__month=3).aggregate(
-            sum=(Coalesce(Sum("income_value"), Decimal("0"))))
+            sum=(Coalesce(Sum("income_value"), Decimal("0.00"))))
         context["march_incomes"] = march_incomes["sum"]
         april_incomes = Income.objects.filter(income_date__month=4).aggregate(
-            sum=(Coalesce(Sum("income_value"), Decimal("0"))))
+            sum=(Coalesce(Sum("income_value"), Decimal("0.00"))))
         context["april_incomes"] = april_incomes["sum"]
         may_incomes = Income.objects.filter(income_date__month=5).aggregate(
-            sum=(Coalesce(Sum("income_value"), Decimal("0.0"))))
+            sum=(Coalesce(Sum("income_value"), Decimal("0.00"))))
         context["may_incomes"] = may_incomes["sum"]
         june_incomes = Income.objects.filter(income_date__month=6).aggregate(
-            sum=(Coalesce(Sum("income_value"), Decimal("0"))))
+            sum=(Coalesce(Sum("income_value"), Decimal("0.00"))))
         context["june_incomes"] = june_incomes["sum"]
         july_incomes = Income.objects.filter(income_date__month=7).aggregate(
-            sum=(Coalesce(Sum("income_value"), Decimal("0"))))
+            sum=(Coalesce(Sum("income_value"), Decimal("0.00"))))
         context["july_incomes"] = july_incomes["sum"]
         august_incomes = Income.objects.filter(income_date__month=8).aggregate(
-            sum=(Coalesce(Sum("income_value"), Decimal("0"))))
+            sum=(Coalesce(Sum("income_value"), Decimal("0.00"))))
         context["august_incomes"] = august_incomes["sum"]
         september_incomes = Income.objects.filter(income_date__month=9).aggregate(
-            sum=(Coalesce(Sum("income_value"), Decimal("0"))))
+            sum=(Coalesce(Sum("income_value"), Decimal("0.00"))))
         context["september_incomes"] = september_incomes["sum"]
         october_incomes = Income.objects.filter(income_date__month=10).aggregate(
-            sum=(Coalesce(Sum("income_value"), Decimal("0"))))
+            sum=(Coalesce(Sum("income_value"), Decimal("0.00"))))
         context["october_incomes"] = october_incomes["sum"]
         november_incomes = Income.objects.filter(income_date__month=11).aggregate(
-            sum=(Coalesce(Sum("income_value"), Decimal("0"))))
+            sum=(Coalesce(Sum("income_value"), Decimal("0.00"))))
         context["november_incomes"] = november_incomes["sum"]
         december_incomes = Income.objects.filter(income_date__month=12).aggregate(
-            sum=(Coalesce(Sum("income_value"), Decimal("0"))))
+            sum=(Coalesce(Sum("income_value"), Decimal("0.00"))))
         context["december_incomes"] = december_incomes["sum"]
 
         return context
