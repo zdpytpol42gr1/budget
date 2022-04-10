@@ -1,10 +1,8 @@
 # Balancee - free budget manager
-
 This is a Django application to manage personal budget. It allows user to add/remove incomes and expenses in different
 categories.
 
 ### GETTING STARTED
-
 1. Checking Python version.
     - To be able to use this app you'll need to have Python installed, you can check whether you have it installed or
       not by typing in terminal:  
@@ -35,36 +33,3 @@ categories.
       `$ pip install -r requirements.txt`
       <br/><br/>
 
-### USAGE
-
-- To use this application you need to type (if you're in your workspace directory):  
-  `python manage.py runserver`  
-  or  
-  `python3 manage.py runserver`
-- After that you need to create an account to start using app
-- Main functionalities:
-    - Alpha
-    - Beta:
-        - one
-        - two
-        - three
-    - User registration/login
-    - Updating user profile
-    - Password reset/password change
-
-- To do:
-    - 1 feature
-
-- Technologies used:
-    - Python 3.6.5
-    - Django 2.1.7
-    - Django-Rest-Framework
-    - requests
-    - Re
-    - PostgreSQL
-    - JavaScript/jQuery
-    - Bootstrap 4
-
-### How does it look like:
-
-![example 1](https://github.com/sample_01.jpg)
