@@ -2,7 +2,7 @@
 This is a Django application to manage personal budget. It allows user to add/remove incomes and expenses in different
 categories.
 
-### GETTING STARTED
+## GETTING STARTED
 1. Checking Python version.
     - To be able to use this app you'll need to have Python installed, you can check whether you have it installed or
       not by typing in terminal:  
@@ -33,3 +33,28 @@ categories.
       `$ pip install -r requirements.txt`
       <br/><br/>
 
+## USAGE
+
+- To use this application you need to type (if you're in your workspace directory):  
+  `python manage.py runserver`  
+  or  
+  `python3 manage.py runserver`
+- After that you need to create an account to start using app
+- Main functionalities:
+    - Alpha
+    - Beta:
+        - one
+        - two
+        - three
+    - User registration/login
+    - Updating user profile
+    - Password reset/password change
+
+### To do
+1. feature-1
+
+### Technologies used:
+- Python 3.9
+- Django 4.0.3
+- django-filter 21.1
+- others
