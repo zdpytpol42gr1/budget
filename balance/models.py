@@ -13,11 +13,12 @@ class Income(models.Model):
     comment = models.TextField(blank=True)
     recurring_income = models.BooleanField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="incomes")
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     income_date = models.DateTimeField(default=datetime.now, blank=True, null=True)
     income_category = models.ForeignKey(
-        "balance.IncomeCategory", on_delete=models.CASCADE, related_name="incomes"
+        "balance.IncomeCategory", null=True, on_delete=models.SET_NULL
     )
 
     class Meta:
@@ -32,6 +33,7 @@ class IncomeCategory(models.Model):
     income_category_name = models.CharField(max_length=100, unique=True)
 
     class Meta:
+        ordering = ("income_category_name",)
         verbose_name_plural = "Income Categories"
 
     def __str__(self):

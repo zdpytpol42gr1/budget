@@ -1,14 +1,16 @@
-{% extends 'balance/base.html' %}
-{% block site_title %} New income {% endblock %}
+{% extends 'user_manager/base.html' %}
+{% block site_title %} Add expense {% endblock %}
+{% block page_heading %} Add new expense {% endblock page_heading %}
 
 {% block content %}
-<h1>ADD NEW INCOME</h1>
-<form method="post" novalidate>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
 
-<button onclick="location.href='{% url 'income_list' %}'" type="button">Back to income list</button>
+<div class="form-group">
+    <form method="post" action="" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" class="btn btn-primary" value="Save">
+        <a href="{% url 'income_list' %}" class="btn btn-primary">Cancel</a><br>
+    </form>
+</div>
 
 {% endblock content %}
