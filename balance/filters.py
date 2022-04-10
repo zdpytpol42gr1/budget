@@ -22,15 +22,16 @@ class IncomeFilter(django_filters.FilterSet):
 
 class ExpenseFilter(django_filters.FilterSet):
     expense_value = django_filters.NumberFilter(
-        field_name="expense_value", label="exact value"
+        field_name="expense_value", label="Exact value",
     )
     expense_value__gte = django_filters.NumberFilter(
-        field_name="expense_value", lookup_expr="gte", label="from"
+        field_name="expense_value", lookup_expr="gte", label="Value from"
     )
     expense_value__lte = django_filters.NumberFilter(
-        field_name="expense_value", lookup_expr="lte", label="to"
+        field_name="expense_value", lookup_expr="lte", label="Value to"
     )
-    expense_name = django_filters.CharFilter(lookup_expr="icontains", label="name")
+    expense_name = django_filters.CharFilter(lookup_expr="icontains", label="Name")
+
     expense_category = django_filters.ModelChoiceFilter(
-        queryset=ExpenseCategory.objects.all(), label="category"
+        queryset=ExpenseCategory.objects.all(), label="Category"
     )

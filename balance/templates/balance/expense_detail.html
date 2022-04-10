@@ -4,14 +4,22 @@
 
 {% block content %}
 
-Expense name: {{ object.expense_name }}</br>
-Expense value: {{ object.expense_value }}</br>
-Comment: {{ object.comment }}</br>
-Expense date: {{ object.expense.date }}</br>
-Category: {{ object.expense_category }}</br></p>
+<div class="col-sm-4 mb-4 mb-sm-0">
+  <div class="card">
+    <h5 class="card-header">{{ object.expense_name }}</h5>
+      <div class="card-body">
+        <h6 class="card-title">Value: {{ object.expense_value }} </h6>
+        <h6 class="card-title">Comment: {{ object.comment }} </h6>
+        <h6 class="card-title">Date: {{ object.expense_date|date:"Y-m-d" }} </h6>
+        <h6 class="card-title">Category: {{ object.expense_category }} </h6>
 
-<a href="{% url 'expense_delete' expense.id %}" class="btn btn-primary">Delete expense</a>
-<a href="{% url 'expense_update' expense.id %}" class="btn btn-primary">Edit expense</a>
-<a href="{% url 'expense_list' %}" class="btn btn-primary">Back to expense list</a>
+        <a href="{% url 'expense_delete' expense.id %}" class="btn btn-primary">Delete expense</a>
+        <a href="{% url 'expense_update' expense.id %}" class="btn btn-primary">Edit expense</a>
+        <a href="{% url 'expense_list' %}" class="btn btn-primary">Back to expense list</a>
+     </div>
+  </div>
+</div>
+
+
 
 {% endblock content %}

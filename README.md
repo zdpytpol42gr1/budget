@@ -1,7 +1,10 @@
 # Balancee - free budget manager
+This is a Django project to manage personal balance.
+You can register to our site and add your incomes and expenses.
+Our site shows you summary of your balance.
 
-This is a Django application to manage personal budget. It allows user to add/remove incomes and expenses in different
-categories.
-
-### GETTING STARTED
-
+# Get Started
+to run local server you must go into directory with manage.py file
+```
+python manage.py runserver
+```
