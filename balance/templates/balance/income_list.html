@@ -27,13 +27,13 @@
         <th onclick="sortTable(0)">Name</th>
         <th onclick="sortTable(1)">Value</th>
         <th onclick="sortTable(2)">Category</th>
-        <th onclick="sortTable(3)">Expense date</th>
+        <th onclick="sortTable(3)">Income date</th>
     </tr>
     </thead>
     <tbody>
     {% for income in filter.qs %}
     <tr>
-        <td><a href="{% url 'income_detail' expense.id%}">{{ income.income_name }}</a></td>
+        <td><a href="{% url 'income_detail' income.id%}">{{ income.income_name }}</a></td>
         <td> {{ income.income_value }}</td>
         <td> {{ income.income_category }}</td>
         <td> {{ income.income_date|date:"Y-m-d H:i" }}</td>
@@ -71,8 +71,8 @@
 
 
 <p><div class="bottom-buttons text-center col-bg-6">
-                <a href="{% url 'expense_create' %}" class="btn btn-warning">Add income</a>
-                <a href="{% url 'expense_category_create' %}" class="btn btn-warning">Add new category</a>
+                <a href="{% url 'income_create' %}" class="btn btn-warning">Add income</a>
+                <a href="{% url 'income_category_create' %}" class="btn btn-warning">Add new category</a>
 </div></p>
 
 <p><div class="bottom-buttons text-center">
