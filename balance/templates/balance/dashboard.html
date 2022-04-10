@@ -78,10 +78,10 @@
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
                     <h6 class="collapse-header">Actions:</h6>
-                    <a class="collapse-item" href="utilities-color.html">Colors</a>
-                    <a class="collapse-item" href="utilities-border.html">Borders</a>
-                    <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                    <a class="collapse-item" href="utilities-other.html">Other</a>
+                    <a class="collapse-item" href="{% url 'income_create' %}">Add new income</a>
+                    <a class="collapse-item" href="{% url 'income_list' %}">Incomes list</a>
+                    <a class="collapse-item" href="{% url 'income_category_list' %}">Categories of incomes</a>
+                    <a class="collapse-item" href="{% url 'income_category_create' %}">Add new category</a>
                 </div>
             </div>
         </li>

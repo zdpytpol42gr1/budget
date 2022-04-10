@@ -4,14 +4,14 @@
 
 {% block content %}
 
-Expense name: {{ object.income_name }}</br>
-Expense value: {{ object.income_value }}</br>
+Income name: {{ object.income_name }}</br>
+Income value: {{ object.income_value }}</br>
 Comment: {{ object.comment }}</br>
-Expense date: {{ object.income.date }}</br>
+Income date: {{ object.income.date }}</br>
 Category: {{ object.income_category }}</br></p>
 
-<a href="{% url 'income_delete' income.id %}" class="btn btn-primary">Delete expense</a>
-<a href="{% url 'income_update' income.id %}" class="btn btn-primary">Edit expense</a>
-<a href="{% url 'income_list' %}" class="btn btn-primary">Back to expense list</a>
+<a href="{% url 'income_delete' income.id %}" class="btn btn-primary">Delete income</a>
+<a href="{% url 'income_update' income.id %}" class="btn btn-primary">Edit income</a>
+<a href="{% url 'income_list' %}" class="btn btn-primary">Back to income list</a>
 
 {% endblock content %}
