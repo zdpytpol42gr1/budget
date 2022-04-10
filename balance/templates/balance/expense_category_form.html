@@ -4,13 +4,15 @@
 
 {% block content %}
 
-<form method="post" novalidate>
-    {% csrf_token %}
-    {{ form.as_p }}
-    <a href="{% url 'expense_category_list' %}">
+<div class="col-sm-5 mb-4 mb-sm-0">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <a href="{% url 'expense_category_list' %}">
         <input type="submit" class="btn btn-primary" value="Save">
-    </a>
-<a href="{% url 'expense_category_list' %}" class="btn btn-primary">Cancel</a>
-</form>
+        </a>
+        <a href="{% url 'expense_category_list' %}" class="btn btn-primary">Cancel</a>
+    </form>
 
 {% endblock content %}
+

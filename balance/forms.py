@@ -12,10 +12,11 @@ class ExpenseForm(forms.ModelForm):
     comment = forms.CharField(label="Comment", widget=forms.TextInput(attrs={'class': 'form-control'}), required=False)
     expense_date = forms.DateField(widget=forms.DateInput(attrs={'class': 'form-control', "placeholder": "YYYY-MM-DD"}), required=False, validators=[MaxValueValidator(date.today())])
     category = forms.ModelChoiceField(queryset=ExpenseCategory.objects.all(), error_messages={"required": "You must choose a category"}, widget=forms.Select(attrs={'class': 'form-control'}))
+    recurring_expense = forms.BooleanField(widget=forms.Select(choices=(("YES", "YES"), ('NO', 'NO')), attrs={'class': 'form-control'}))
 
     class Meta:
         model = Expense
-        fields = ["expense_name", "expense_value", "comment", "expense_date", "category"]
+        fields = ["expense_name", "expense_value", "comment", "expense_date", "recurring_expense", "category"]
 
 
 class IncomeForm(forms.ModelForm):
