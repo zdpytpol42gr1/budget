@@ -22,7 +22,7 @@ class BaseView(View):
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return redirect("login")
+        return redirect("home")
 
 
 class ResetPasswordView(View):
