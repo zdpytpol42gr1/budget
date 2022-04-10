@@ -17,8 +17,7 @@ class Income(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     income_date = models.DateTimeField(default=datetime.now, blank=True, null=True)
     income_category = models.ForeignKey(
-        "balance.IncomeCategory", on_delete=models.CASCADE, related_name="incomes"
-    )
+        "balance.IncomeCategory", on_delete=models.CASCADE)
 
     class Meta:
         ordering = ("-income_date",)
@@ -46,7 +45,6 @@ class Expense(models.Model):
     comment = models.TextField(blank=True)
     recurring_expense = models.BooleanField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="expenses")
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     expense_date = models.DateTimeField(default=datetime.now, blank=True, null=True)

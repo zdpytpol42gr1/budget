@@ -4,7 +4,7 @@
 
 {% block content %}
 
-<div class="form-group">
+<div class="col-sm-5 mb-4 mb-sm-0">
     <form method="post" action="" novalidate>
         {% csrf_token %}
         {{ form.as_p }}
@@ -12,5 +12,6 @@
         <a href="{% url 'expense_list' %}" class="btn btn-primary">Cancel</a><br>
     </form>
 </div>
+
 
 {% endblock content %}

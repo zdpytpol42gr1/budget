@@ -13,6 +13,7 @@
     <meta name="author" content="">
 
     <title>Balancee</title>
+
     {% load static %}
     <!-- Custom fonts for this template-->
     <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
@@ -97,49 +98,6 @@
         </li>
 
         <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Heading -->
-        <div class="sidebar-heading">
-            Addons
-        </div>
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Pages</span>
-            </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <h6 class="collapse-header">Login Screens:</h6>
-                    <a class="collapse-item" href="login.html">Login</a>
-                    <a class="collapse-item" href="register.html">Register</a>
-                    <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                    <div class="collapse-divider"></div>
-                    <h6 class="collapse-header">Other Pages:</h6>
-                    <a class="collapse-item" href="404.html">404 Page</a>
-                    <a class="collapse-item" href="blank.html">Blank Page</a>
-                </div>
-            </div>
-        </li>
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-            <a class="nav-link" href="charts.html">
-                <i class="fas fa-fw fa-chart-area"></i>
-                <span>Charts</span></a>
-        </li>
-
-        <!-- Nav Item - Tables -->
-        <li class="nav-item">
-            <a class="nav-link" href="tables.html">
-                <i class="fas fa-fw fa-table"></i>
-                <span>Tables</span></a>
-        </li>
-
-        <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block">
 
         <!-- Sidebar Toggler (Sidebar) -->
@@ -164,97 +122,8 @@
                     <i class="fa fa-bars"></i>
                 </button>
 
-                <!-- Topbar Search -->
-                <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <div class="input-group">
-                        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                               aria-label="Search" aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search fa-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
                 <!-- Topbar Navbar -->
                 <ul class="navbar-nav ml-auto">
-
-                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none">
-                        <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-search fa-fw"></i>
-                        </a>
-                        <!-- Dropdown - Messages -->
-                        <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                             aria-labelledby="searchDropdown">
-                            <form class="form-inline mr-auto w-100 navbar-search">
-                                <div class="input-group">
-                                    <input type="text" class="form-control bg-light border-0 small"
-                                           placeholder="Search for..." aria-label="Search"
-                                           aria-describedby="basic-addon2">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
-
-                    <!-- Nav Item - Alerts -->
-                    <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-bell fa-fw"></i>
-                            <!-- Counter - Alerts -->
-                            <span class="badge badge-danger badge-counter">3+</span>
-                        </a>
-                        <!-- Dropdown - Alerts -->
-                        <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                             aria-labelledby="alertsDropdown">
-                            <h6 class="dropdown-header">
-                                Alerts Center
-                            </h6>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-primary">
-                                        <i class="fas fa-file-alt text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 12, 2019</div>
-                                    <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-success">
-                                        <i class="fas fa-donate text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 7, 2019</div>
-                                    $290.29 has been deposited into your account!
-                                </div>
-                            </a>
-                            <a class="dropdown-item d-flex align-items-center" href="#">
-                                <div class="mr-3">
-                                    <div class="icon-circle bg-warning">
-                                        <i class="fas fa-exclamation-triangle text-white"></i>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="small text-gray-500">December 2, 2019</div>
-                                    Spending Alert: We've noticed unusually high spending for your account.
-                                </div>
-                            </a>
-                            <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                        </div>
-                    </li>
 
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
@@ -267,20 +136,9 @@
                         <!-- Dropdown - User Information -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                              aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Profile
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Settings
-                            </a>
-                            <a class="dropdown-item" href="#">
-                                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                Activity Log
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+
+
+                            <a class="dropdown-item" href="{% url 'logout' %}" data-toggle="modal" data-target="#logoutModal">
                                 <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Logout
                             </a>
@@ -299,7 +157,6 @@
                 <div class="d-sm-flex align-items-center justify-content-between mb-4">
                     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                 </div>
-
 
                 <!-- Content Row -->
                 <div class="row">
@@ -385,31 +242,14 @@
                                     </div>
                                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                                     <script>
-                                        labels = [1, 2, 3, 4, 5, 6, 7];
+                                        labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
                                         data = {
                                           labels: labels,
                                           datasets: [{
-                                            label: "how to delete it",
-                                            data: [65, 59, 80, 81, 56, 55, 40],
-                                            backgroundColor: [
-                                              'rgba(255, 99, 132, 0.2)',
-                                              'rgba(255, 159, 64, 0.2)',
-                                              'rgba(255, 205, 86, 0.2)',
-                                              'rgba(75, 192, 192, 0.2)',
-                                              'rgba(54, 162, 235, 0.2)',
-                                              'rgba(153, 102, 255, 0.2)',
-                                              'rgba(201, 203, 207, 0.2)'
-                                            ],
-                                            borderColor: [
-                                              'rgb(255, 99, 132)',
-                                              'rgb(255, 159, 64)',
-                                              'rgb(255, 205, 86)',
-                                              'rgb(75, 192, 192)',
-                                              'rgb(54, 162, 235)',
-                                              'rgb(153, 102, 255)',
-                                              'rgb(201, 203, 207)'
-                                            ],
-                                            borderWidth: 1
+                                            label: "Expenses",
+                                            data: [{{ january_expenses }}, {{ february_expenses }}, {{ march_expenses }}, {{ april_expenses }}, {{ may_expenses }}, {{ june_expenses }},
+                                            {{ july_expenses }}, {{ august_expenses }}, {{ september_expenses }}, {{ october_expenses }}, {{ november_expenses }}, {{ december_expenses }}],
+                                            backgroundColor: ['#9E3E3C', '#A3463E', '#AC5743', '#A74F40', '#B06045', '#B46A48', '#B8734B', '#BC7D4E', '#C08751', '#C49154', '#C79B57', '#CBA55A', '#CEAF5D'],
                                           }]
                                         };
                                         const config_expenses_bar = {
@@ -424,15 +264,12 @@
                                               }
                                             },
                                         };
-                                    </script>
 
-                                    <script>
                                       expensesBarChart = new Chart(
                                         document.getElementById('expensesBarChart'),
                                         config_expenses_bar
                                       );
                                     </script>
-
                                 </div>
                             </div>
                         </div>
@@ -455,7 +292,7 @@
                                         labels: [{% for category in sum_of_expenses_in_category %} '{{ category }}',  {% endfor %}],
                                         datasets: [{
                                           data: [{% for category in sum_of_expenses_in_category %} '{{ category.expense__expense_value__sum }}',  {% endfor %}],
-                                          backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc', '#f1c232', '#ff8243', '#66cc00', '#887c86', '#0b5d09'],
+                                          backgroundColor: ['#FFCF56', '#F26419', '#F6AE2D', '#CD5334', '#EDB88B', '#F58F29', '#fff19b', '#FFA987', '#f8b96a', '#A1C181', '#ec7e52', '#e25f50', '#d43d51'],
                                         }]
                                       };
 
@@ -480,9 +317,7 @@
                                           cutoutPercentage: 75,
                                         },
                                       };
-                                    </script>
 
-                                    <script>
                                       expensesPieChart = new Chart(
                                         document.getElementById('expensesPieChart'),
                                         config_expenses_pie
@@ -492,7 +327,7 @@
                             </div>
                         </div>
 
-                        <!-- Area Chart2 -->
+                        <!-- Area Chart Incomes -->
                         <div class="col-xl-8 col-lg-7">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
@@ -502,39 +337,147 @@
                                 <!-- Card Body -->
                                 <div class="card-body">
                                     <div class="chart-area">
-                                        <canvas id="myAreaChart"></canvas>
+                                        <canvas id="incomesBarChart"></canvas>
                                     </div>
+                                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                    <script>
+                                        labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                        data = {
+                                          labels: labels,
+                                          datasets: [{
+                                            label: "Incomes",
+                                            data: [{{ january_incomes }}, {{ february_incomes }}, {{ march_incomes }}, {{ april_incomes }}, {{ may_incomes }}, {{ june_incomes }},
+                                            {{ july_incomes }}, {{ august_incomes }}, {{ september_incomes }}, {{ october_incomes }}, {{ november_incomes }}, {{ december_incomes }}],
+                                            backgroundColor: ['#1B4018', '#205520', '#28692D', '#307D3C', '#39914E', '#42A561', '#72BD7F', '#A3D5A5', '#D7ECD5'],
+                                          }]
+                                        };
+                                        const config_incomes_bar = {
+                                            type: 'bar',
+                                            data: data,
+                                            options: {
+                                              maintainAspectRatio: false,
+                                              scales: {
+                                                y: {
+                                                  beginAtZero: true
+                                                }
+                                              }
+                                            },
+                                        };
+
+                                      incomesBarChart = new Chart(
+                                        document.getElementById('incomesBarChart'),
+                                        config_incomes_bar
+                                      );
+                                    </script>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Pie Chart -->
+                        <!-- Pie Chart Incomes-->
                         <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
-                                <div
-                                        class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Income Sources</h6>
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Incomes Sources</h6>
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                <div class="chart-pie pt-4 pb-2">
-                                    <canvas id="myPieChart"></canvas>
-                                </div>
-                                <div class="mt-4 text-center small">
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-primary"></i> Direct
-                                        </span>
-                                    <span class="mr-2">
-                                            <i class="fas fa-circle text-success"></i> Social
-                                        </span>
-                                    <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Referral
-                                        </span>
+                                    <div class="chart-pie pt-4 pb-2">
+                                    <canvas id="incomesPieChart"></canvas>
+                                    </div>
+                                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                    <script>
+                                      data = {
+                                        labels: [{% for category in sum_of_incomes_in_category %} '{{ category }}',  {% endfor %}],
+                                        datasets: [{
+                                          data: [{% for category in sum_of_incomes_in_category %} '{{ category.income__income_value__sum }}',  {% endfor %}],
+                                          backgroundColor: ['#00876c', '#90C290', '#f39c5b', '#F4D35E', '#EE964B', '#409a70', '#7C72A0', '#67ac75', '#8cbe7b', '#b2d083', '#d8e18d', '#fff19b', '#fcd580', '#f8b96a', '#ec7e52', '#e25f50', '#d43d51'],
+                                        }]
+                                      };
+
+                                      const config_incomes_pie = {
+                                        type: 'doughnut',
+                                        data: data,
+                                        options: {
+                                          maintainAspectRatio: false,
+                                          tooltips: {
+                                              backgroundColor: "rgb(255,255,255)",
+                                              bodyFontColor: "#858796",
+                                              borderColor: '#dddfeb',
+                                              borderWidth: 1,
+                                              xPadding: 15,
+                                              yPadding: 15,
+                                              displayColors: false,
+                                              caretPadding: 10,
+                                          },
+                                          legend: {
+                                            display: false
+                                          },
+                                          cutoutPercentage: 75,
+                                        },
+                                      };
+                                    </script>
+
+                                    <script>
+                                      incomesPieChart = new Chart(
+                                        document.getElementById('incomesPieChart'),
+                                        config_incomes_pie
+                                      );
+                                    </script>
                                 </div>
                             </div>
                         </div>
-                    </div>
+
+                        <!-- Area Chart Expenses vs Incomes -->
+                        <div class="col-xl-12 col-lg-7">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary">Expenses vs Incomes Overview</h6>
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body">
+                                    <div class="chart-area">
+                                        <canvas id="expensesvsincomesBarChart"></canvas>
+                                    </div>
+                                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                    <script>
+                                        labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                                        data = {
+                                          labels: labels,
+                                          datasets: [{
+                                            label: "Expenses",
+                                            data: [{{ january_expenses }}, {{ february_expenses }}, {{ march_expenses }}, {{ april_expenses }}, {{ may_expenses }}, {{ june_expenses }},
+                                            {{ july_expenses }}, {{ august_expenses }}, {{ september_expenses }}, {{ october_expenses }}, {{ november_expenses }}, {{ december_expenses }}],
+                                            backgroundColor: ['#9E3E3C', '#A3463E', '#AC5743', '#A74F40', '#B06045', '#B46A48', '#B8734B', '#BC7D4E', '#C08751', '#C49154', '#C79B57', '#CBA55A', '#CEAF5D'],
+                                          },
+                                          {
+                                            label: "Incomes",
+                                            data: [{{ january_incomes }}, {{ february_incomes }}, {{ march_incomes }}, {{ april_incomes }}, {{ may_incomes }}, {{ june_incomes }},
+                                            {{ july_incomes }}, {{ august_incomes }}, {{ september_incomes }}, {{ october_incomes }}, {{ november_incomes }}, {{ december_incomes }}],
+                                            backgroundColor: ['#1B4018', '#205520', '#28692D', '#307D3C', '#39914E', '#42A561', '#72BD7F', '#A3D5A5', '#D7ECD5'],
+                                          }]
+                                        };
+                                        const config_expensesvsincomes_bar = {
+                                            type: 'bar',
+                                            data: data,
+                                            options: {
+                                              maintainAspectRatio: false,
+                                              scales: {
+                                                y: {
+                                                  beginAtZero: true
+                                                }
+                                              }
+                                            },
+                                        };
+                                      expensesvsincomesBarChart = new Chart(
+                                        document.getElementById('expensesvsincomesBarChart'),
+                                        config_expensesvsincomes_bar
+                                      );
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
 
                     <!-- Content Row -->
                     <div class="row">
@@ -586,7 +529,7 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="{% url 'logout' %}">Logout</a>
                 </div>
             </div>
         </div>
@@ -614,5 +557,4 @@
 
 
 </body>
-
 </html>
