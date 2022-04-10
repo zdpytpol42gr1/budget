@@ -21,11 +21,6 @@ from .models import Expense, ExpenseCategory, Income, IncomeCategory
 class IncomeListView(ListView):
     model = Income
 
-    def get_queryset(self):
-        if self.model is not None:
-            queryset = self.model.objects.filter(user=self.request.user)
-        return queryset
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -148,22 +143,42 @@ class IncomeDeleteView(DeleteView):
     model = Income
     success_url = reverse_lazy("income_list")
 
+    def get_queryset(self):
+        qs = super(IncomeDeleteView, self).get_queryset()
+        return qs.filter(user=self.request.user)
+
 
 class IncomeCategoryListView(ListView):
     model = IncomeCategory
     template_name = "balance/income_category_list.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        categories = IncomeCategory.objects.all()
+        context['categories'] = categories
+
+        sum_of_incomes_in_category = IncomeCategory.objects.annotate(
+            sum=Sum("income__income_value")
+        )
+        context["sum_of_incomes_in_category"] = sum_of_incomes_in_category
+        return context
+
 
 class IncomeCategoryDetailView(DetailView):
     model = IncomeCategory
-    fields = "__all__"
+    template_name = "balance/income_category_detail.html"
 
 
 class IncomeCategoryCreateView(CreateView):
     model = IncomeCategory
-    fields = "__all__"
+    fields = ["income_category_name"]
     template_name = "balance/income_category_form.html"
     success_url = reverse_lazy("income_category_list")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
 
 
 class ExpenseDeleteView(DeleteView):
@@ -220,14 +235,24 @@ class ExpenseCategoryUpdateView(UpdateView):
         return super().form_valid(form)
 
 
+class IncomeCategoryUpdateView(UpdateView):
+    model = IncomeCategory
+    fields = ["income_category_name"]
+    template_name = "balance/income_category_update_form.html"
+    success_url = reverse_lazy("income_category_list")
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
+
 class IncomeCategoryDeleteView(DeleteView):
     model = IncomeCategory
-    fields = "__all__"
     template_name = "balance/income_category_confirm_delete.html"
     success_url = reverse_lazy("income_category_list")
 
     def get_queryset(self):
-        qs = super(ExpenseCategoryDeleteView, self).get_queryset()
+        qs = super(IncomeCategoryDeleteView, self).get_queryset()
         return qs.filter(user=self.request.user)
 
 

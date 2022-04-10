@@ -1,15 +1,27 @@
-{% extends 'balance/base.html' %}
-{% block site_title %} Category details {% endblock %}
+{% extends 'user_manager/base.html' %}
+{% block site_title %} Category detail {% endblock %}
+{% block page_heading %} Category detail {% endblock page_heading %}
 
 {% block content %}
-<h2> Category detail</h2>
 
-<p>Category name: {{ object.income_category_name }}</br>
-    Items in category: NEED TO BE ADDED </br>
-    Total value of category: NEED TO BE ADDED</br></p>
-
-<button onclick='location.href='{% url 'income_category_edit' income_category.id %}'" type="button">Edit income category</button>
-<button onclick="location.href='{% url 'category_delete' income_category.id %}'" type="button">Delete income category</button>
-<button onclick="location.href='{% url 'category_list' %}'" type="button">Back to income category list</button>
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th>Income</th>
+        <th>Value</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for income in incomecategory.income_set.all %}
+    <tr>
+        <td>{{ income }}</td>
+        <td>{{ income.income_value }}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'income_category_delete' incomecategory.id %}" class="btn btn-primary">Delete category</a>
+<a href="{% url 'income_category_update' incomecategory.id %}" class="btn btn-primary">Edit category</a>
+<a href="{% url 'income_category_list' %}" class="btn btn-primary">Back to category list</a>
 
 {% endblock content %}

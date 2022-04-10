@@ -1,27 +1,15 @@
-{% extends 'balance/base.html' %}
-{% block site_title %} Income categories {% endblock %}
+{% extends 'user_manager/base.html' %}
+{% block site_title %} Categories {% endblock %}
+{% block page_heading %} Categories list {% endblock page_heading %}
 
 {% block content %}
-<h1>Income categories list view</h1>
 
-<table>
-    <thead>
-    <tr>
-        <th>Name</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for category in object_list %}
-    <tr>
-        <td><a href="{% url 'income_category_detail' category.id %}">{{ category.income_category_name }}</a></td>
-    </tr>
-    {% empty %}
-    No categories yet
-    {% endfor %}
-    </tbody>
-</table>
-
-<button onclick="location.href='{% url 'income_category_create' %}'" type="button">Add new income category</button>
-<button onclick="location.href='{% url 'income_list' %}'" type="button">Back to incomes list</button>
+<div class="list-group">
+    {% for category in sum_of_incomes_in_category %}
+    <a href="{% url 'income_category_detail' category.id %}" class="list-group-item list-group-item-action">{{ category }}{{ category.income__income_value__sum }}</a>
+            {% empty %}
+        No categories yet
+        {% endfor %}
+</div>
 
 {% endblock content %}

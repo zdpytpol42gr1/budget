@@ -14,11 +14,9 @@ class IncomeFilter(django_filters.FilterSet):
     income_value__lte = django_filters.NumberFilter(
         field_name="income_value", lookup_expr="lte", label="to"
     )
-    income_name = django_filters.CharFilter(
-        lookup_expr="icontains", label="income_name"
-    )
+    income_name = django_filters.CharFilter(lookup_expr="icontains", label="name")
     income_category = django_filters.ModelChoiceFilter(
-        queryset=IncomeCategory.objects.all(), label="income_category"
+        queryset=IncomeCategory.objects.all(), label="category"
     )
 
 

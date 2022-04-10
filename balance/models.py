@@ -17,7 +17,8 @@ class Income(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     income_date = models.DateTimeField(default=datetime.now, blank=True, null=True)
     income_category = models.ForeignKey(
-        "balance.IncomeCategory", on_delete=models.CASCADE)
+        "balance.IncomeCategory", null=True, on_delete=models.SET_NULL
+    )
 
     class Meta:
         ordering = ("-income_date",)
