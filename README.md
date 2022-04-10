@@ -49,12 +49,16 @@ categories.
     - User registration/login
     - Updating user profile
     - Password reset/password change
-
-### To do
-1. feature-1
+      <br/><br/>
 
 ### Technologies used:
 - Python 3.9
 - Django 4.0.3
 - django-filter 21.1
 - others
+<br/><br/>
+
+### To do
+1. feature-1
+ <br/><br/>
+
