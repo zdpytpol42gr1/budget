@@ -1,0 +1,14 @@
+{% extends 'user_manager/base.html' %}
+{% block site_title %} Category update {% endblock %}
+{% block page_heading %} Category update {% endblock page_heading %}
+
+{% block content %}
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" class="btn btn-primary" value="Update">
+    <a href="{% url 'income_category_detail' incomecategory.id %}" class="btn btn-primary">Cancel</a>
+</form>
+
+{% endblock content %}
