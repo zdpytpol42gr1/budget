@@ -25,31 +25,7 @@
 
 </head>
 
-<!-- <body>
-    <div class="container py-5">
-        <h1>Register</h1>
-        <form method="POST">
-		{% csrf_token %}
-		{{ form.username.label }}
-		{{ form.username }}<br>
-
-		{{ form.email.label }}
-		{{ form.email }}<br>
-
-		{{ form.password1.label }}
-		{{ form.password1 }}<br>
-
-		{{ form.password2.label }}
-		{{ form.password2 }}<br>
-
-		{{ form.errors }}
-
-		<button class="btn btn-primary" type="submit">Create user</button>
-	</form>
-        <p class="text-center">If you already have an account, <a href="{% url 'login' %}">login</a> instead.</p> -->
-
 <body class="bg-gradient-primary">
-
     <div class="container">
 
         <div class="card o-hidden border-0 shadow-lg my-5">
@@ -61,45 +37,35 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user">
+                            <form method="post" class="user">
+                                {% csrf_token %}
                                 <div class="form-group row">
                                     <div class="col-sm-12 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="Username">
+                                        {{ form.username.label }}
+                                        {{ form.username }}
                                     </div>
 
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address">
+                                    {{ form.email.label }}
+                                    {{ form.email }}
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                        {{ form.password1.label }}
+                                        {{ form.password1 }}
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+                                        {{ form.password2.label }}
+                                        {{ form.password2 }}
                                     </div>
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
-                                    Register Account
-                                </a>
-                                <hr>
-                                <a href="index.html" class="btn btn-google btn-user btn-block">
-                                    <i class="fab fa-google fa-fw"></i> Register with Google
-                                </a>
-                                <a href="index.html" class="btn btn-facebook btn-user btn-block">
-                                    <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                </a>
+                                <button type="submit" class="btn btn-primary">Register</button>
+                                {{ form.errors }}
+
                             </form>
-                            <hr>
                             <div class="text-center">
-                                <a class="small" href="forgot-password.html">Forgot Password?</a>
-                            </div>
-                            <div class="text-center">
-                                <a class="small" href="login.html">Already have an account? Login!</a>
+                                <a class="small" href="{% url 'login' %}">Already have an account? Login!</a>
                             </div>
                         </div>
                     </div>

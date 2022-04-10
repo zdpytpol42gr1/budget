@@ -338,5 +338,3 @@ class DashboardTemplateView(TemplateView):
             sum=(Coalesce(Sum("income_value"), Decimal("0"))))
         context["december_incomes"] = december_incomes["sum"]
 
-        return context
-
