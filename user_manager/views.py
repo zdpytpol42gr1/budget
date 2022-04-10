@@ -13,7 +13,7 @@ from django.views.generic.edit import CreateView
 
 
 class BaseView(View):
-    template_name = "user_manager/base_view.html"
+    template_name = "user_manager/home.html"
 
     def get(self, request):
         return render(request, self.template_name)
